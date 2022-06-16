@@ -1,0 +1,61 @@
+{
+  "name": "@olton/aptos-api",
+  "version": "0.1.0",
+  "description": "Aptos Rest API wrapper",
+  "main": "dist/aptos.js",
+  "type": "module",
+  "scripts": {
+    "prebuild": "shx rm -rf dist/* lib/*",
+    "build": "rollup --config",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/olton/aptos-api.git"
+  },
+  "keywords": [
+    "aptos",
+    "api",
+    "rest",
+    "javascript",
+    "library"
+  ],
+  "bugs": {
+    "url": "https://github.com/aptos-api/query/issues"
+  },
+  "author": "Serhii Pimenov <serhii@pimenov.com.ua> (https://pimenov.com.ua/)",
+  "license": "MIT",
+  "browserslist": [
+    "last 2 versions",
+    "not ie >= 0",
+    "not ie_mob >= 0",
+    "not op_mini all",
+    "not op_mob >= 0",
+    "not kaios >= 0",
+    "not samsung >= 0",
+    "not baidu >= 0",
+    "not bb >= 0",
+    "maintained node versions"
+  ],
+  "devDependencies": {
+    "@babel/preset-env": "^7.18.2",
+    "@rollup/plugin-babel": "^5.3.1",
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "babel-jest": "^28.1.1",
+    "jest": "^28.1.1",
+    "jsdom": "19.0.0",
+    "jsdom-global": "3.0.2",
+    "rollup": "^2.75.6",
+    "rollup-plugin-terser": "^7.0.2",
+    "shx": "^0.3.4"
+  },
+  "dependencies": {
+    "assert": "^2.0.0",
+    "bip39": "^3.0.4",
+    "cross-fetch": "^3.1.5",
+    "is-port-reachable": "^4.0.0",
+    "js-sha3": "^0.8.0",
+    "tweetnacl": "^1.0.3"
+  }
+}
