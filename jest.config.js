@@ -6,5 +6,10 @@ export default {
     "**/src/core/*.js",
     "**/src/helpers/*.js",
     "**/src/dataset/*.js",
-  ]
+  ],
+  transform: {
+    "^.+\\.(js)$": "babel-jest",
+  },
+  transformIgnorePatterns: [
+  ],
 }
