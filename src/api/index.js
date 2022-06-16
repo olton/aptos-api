@@ -3,6 +3,7 @@ import {Result} from "../helpers/result.js"
 
 export class Api {
     options = {}
+    lastRequest = null
 
     constructor(url = "", options) {
         this.url = url
@@ -13,7 +14,7 @@ export class Api {
         return s.startsWith('0x') ? s : `0x${s}`
     }
 
-    async _exec(link = '', query = null, options = {method: "GET"}, resultType = "json"){
+    async _exec(link = '/', query = null, options = {method: "GET"}, resultType = "json"){
         let queryArray = []
 
         if (query && typeof query === "object") {
@@ -23,7 +24,9 @@ export class Api {
             link += `?${queryArray.join("&")}`
         }
 
-        const response = await fetch(`${this.url}/${link}`, options)
+        this.lastRequest = `${this.url}${link.startsWith('/') ? link : '/'+link}`
+
+        const response = await fetch(this.lastRequest, options)
         const contentType = response.headers.get('Content-Type')
         const result = contentType === 'application/json' ? await response.json() : await response.text()
 
@@ -34,7 +37,17 @@ export class Api {
         return new Result(true, "ok", result)
     }
 
-    state(){
+    getLastRequest(){
+        return this.lastRequest
+    }
+
+    async sleep(timeMs) {
+        return new Promise((resolve) => {
+            setTimeout(resolve, timeMs)
+        })
+    }
+
+    async state(){
         return this._exec()
     }
 }
