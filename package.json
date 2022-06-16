@@ -2,10 +2,11 @@
   "name": "@olton/aptos-api",
   "version": "0.1.0",
   "description": "Aptos Rest API wrapper",
-  "main": "dist/aptos.js",
+  "source": "src/index.js",
+  "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "prebuild": "shx rm -rf dist/* && npm test",
+    "prebuild": "shx rm -rf dist/*",
     "build": "rollup --config",
     "test": "jest"
   },
@@ -39,21 +40,15 @@
   ],
   "devDependencies": {
     "@babel/preset-env": "^7.18.2",
-    "@rollup/plugin-babel": "^5.3.1",
-    "@rollup/plugin-commonjs": "^22.0.0",
-    "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^13.3.0",
     "babel-jest": "^28.1.1",
-    "bip39": "^3.0.4",
     "jest": "^28.1.1",
-    "rollup": "^2.75.6",
-    "shx": "^0.3.4"
+    "pre-commit": "^1.2.2"
   },
   "dependencies": {
     "assert": "^2.0.0",
-    "cross-fetch": "^3.1.5",
-    "is-port-reachable": "^4.0.0",
+    "bip39": "^3.0.4",
     "js-sha3": "^0.8.0",
+    "node-fetch": "^3.2.6",
     "tweetnacl": "^1.0.3"
   }
 }

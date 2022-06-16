@@ -73,7 +73,6 @@ export class Account {
             address: this.address(),
             publicKey: this.pubKey(),
             privateKey: this.privateKey(),
-            mnemonic: this.mnemonic()
         };
     }
 }
@@ -81,5 +80,16 @@ export class Account {
 Account.fromSeed = (seed) => new Account(seed)
 Account.fromObject = (accountObject) => new Account(accountObject.privateKey)
 Account.norm = addr => hexstr(addr)
+Account._0x = a => {
+    if (a instanceof Account) {
+        return a.address()
+    } else if (typeof a === "string") {
+        return hexstr(a).toString()
+    } else if (typeof a === "object" && a.address) {
+        return hexstr(a.address).toString()
+    } else {
+        throw new Error("Value is not an Aptos address or compatible object!")
+    }
+}
 
 export const account = (...args) => new Account(...args)
