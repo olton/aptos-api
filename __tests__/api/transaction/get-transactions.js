@@ -10,14 +10,14 @@ describe("Testing transactions routines", () => {
 
     it("getTransactions()", async () => {
         const transactions = await api.getTransactions()
-        console.log(api.lastRequest)
+
         expect(transactions.ok).toBe(true)
         expect(transactions.payload.length <= 25).toBe(true)
     })
 
     it("getTransactions() for address", async () => {
         const transactions = await api.getTransactions(address)
-        console.log(api.lastRequest)
+
         expect(transactions.ok).toBe(true)
         expect(transactions.payload.length <= 25).toBe(true)
     })
