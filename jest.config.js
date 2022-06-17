@@ -12,4 +12,5 @@ export default {
   },
   transformIgnorePatterns: [
   ],
+  modulePathIgnorePatterns: ["<rootDir>/__tests__/helpers/"]
 }

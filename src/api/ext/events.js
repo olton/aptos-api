@@ -1,4 +1,4 @@
-export const Events = {
+export const EventApi = {
     getEvents(key){
         return this._exec(`/events/${this._0x(key)}`)
     },

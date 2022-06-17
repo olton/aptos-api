@@ -3,7 +3,7 @@ import {Result} from "../../helpers/result.js";
 
 const {sign} = Nacl
 
-export const Transactions = {
+export const TransactionApi = {
     lastTransaction: null,
 
     getTransactions(){
@@ -87,14 +87,17 @@ export const Transactions = {
     },
 
     async transactionPending(hash){
+        console.log("pending", hash)
         const response = await this.getTransaction(hash)
         if (!response.ok && response.error.code === 404) {
             return true
         }
+        if (!response.payload) console.log(response)
         return response.payload.type === "pending_transaction"
     },
 
     async waitForTransaction(hash) {
+        console.log("wait", hash)
         let count = 0
         while (await this.transactionPending(hash)) {
             await this.sleep(1000)
@@ -114,11 +117,13 @@ export const Transactions = {
             return new Result(false, "Error submitting transaction data", result)
         }
 
-        await this. waitForTransaction(result.payload.hash)
-
-        this.lastTransaction = await this.getTransaction(result.payload.hash)
-
-        return new Result(true, "ok", this.lastTransaction)
+        try {
+            await this.waitForTransaction(result.payload.hash)
+            this.lastTransaction = await this.getTransaction(result.payload.hash)
+            return new Result(true, "ok", this.lastTransaction)
+        } catch (e) {
+            return new Result(false, e.message, e.stack)
+        }
     },
 
     getLastTransaction(){

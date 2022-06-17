@@ -1,4 +1,6 @@
-export const Account = {
+import {Result} from "../../helpers/result.js";
+
+export const AccountApi = {
     getAccount(address){
         return this._exec(`/accounts/${this._0x(address)}`)
     },
@@ -18,4 +20,32 @@ export const Account = {
     getAccountModule(address, module){
         return this._exec(`/accounts/${this._0x(address)}/module/${module}`)
     },
+
+    getAccountTransactions(address, query = {start: 1, limit: 25}){
+        return this.getTransactions(address, query)
+    },
+
+    async getAccountBalance(address, coin = '0x1::TestCoin::TestCoin'){
+        const resource = await this.getAccountResource(address, `0x1::Coin::CoinStore<${coin}>`)
+        if (!resource.ok) {
+            return new Result(false, "Error getting address balance", resource.error)
+        }
+        return new Result(true, "ok", {
+            coin,
+            balance: +resource.payload.data.coin.value
+        })
+    },
+
+    createAccount(signer, newAccount, gas){
+        const payload = {
+            "type": "script_function_payload",
+            "function": "0x1::AptosAccount::create_account",
+            "type_arguments": [],
+            "arguments": [
+                newAccount.address(),
+                this._0x(newAccount.pubKey()), // ???
+            ]
+        }
+        return this.submitTransaction(signer, payload, gas)
+    }
 }

@@ -5,10 +5,10 @@ describe("Testing Account extension for API", () => {
     const apiUrl = "https://fullnode.devnet.aptoslabs.com"
     const api = new Api(apiUrl)
 
-    it("getAccountResources()", async () => {
-        const result = await api.getAccountResources(TEST_ACCOUNT.address)
+    it("getAccountBalance()", async () => {
+        const result = await api.getAccountBalance(TEST_ACCOUNT.address)
 
         expect(result.ok).toBe(true)
-        expect(Array.isArray( result.payload) ).toBe(true)
+        expect(result.payload.balance > 0).toBe(true)
     })
 })

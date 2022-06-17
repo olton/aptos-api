@@ -1,8 +1,8 @@
-import {Api} from "../../src/index.js"
+import {Api, aptos} from "../../src/index.js"
 
 describe("Testing Api exec function", () => {
     const apiUrl = "https://fullnode.devnet.aptoslabs.com"
-    const api = new Api(apiUrl)
+    const api = aptos(apiUrl)
 
     it("Node State", async () => {
         const result = await api.state()

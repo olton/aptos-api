@@ -1,5 +1,5 @@
 {
-  "name": "@olton/aptos-api",
+  "name": "@olton/aptos",
   "version": "0.1.0",
   "description": "Aptos Rest API wrapper",
   "source": "src/index.js",

@@ -53,3 +53,5 @@ export class Api {
 }
 
 Api.use = (...obj) => Object.assign(Api.prototype, ...obj)
+
+export const aptos = (...args) => new Api(...args)

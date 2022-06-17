@@ -1,4 +1,4 @@
-export const Node = {
+export const NodeApi = {
     getHealthy(){
         return this._exec(`/-/healthy`, undefined, undefined, "text")
     },
