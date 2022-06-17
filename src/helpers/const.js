@@ -1,0 +1,1 @@
+export const DEFAULT_COIN = '0x1::TestCoin::TestCoin'

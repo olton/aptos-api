@@ -5,9 +5,10 @@ export class Api {
     options = {}
     lastRequest = null
 
-    constructor(url = "", options) {
+    constructor(url = "", options = {}, gas = {}) {
         this.url = url
         Object.assign(this.options, options)
+        Object.assign(this.gas, gas)
     }
 
     _0x(s){

@@ -26,11 +26,7 @@ export const TransactionApi = {
         return this._exec(`/transactions/${hash}`)
     },
 
-    async buildTransaction(senderAddress, payload, gas = {
-        max_gas_amount: 0,
-        gas_unit_price: 0,
-        gas_currency_code: "XXX"
-    }, exp = 600){
+    async buildTransaction(senderAddress, payload, gas = {}, exp = 600){
         let account
 
         account = await this._exec(`/accounts/${this._0x(senderAddress)}`)
@@ -39,12 +35,14 @@ export const TransactionApi = {
             return account
         }
 
+        const _gas = Object.assign({}, this.gas, gas)
+
         return {
             "sender": this._0x(senderAddress),
             "sequence_number": ""+account.payload.sequence_number,
-            "max_gas_amount": ""+gas.max_gas_amount,
-            "gas_unit_price": ""+gas.gas_unit_price,
-            "gas_currency_code": ""+gas.gas_currency_code,
+            "max_gas_amount": ""+_gas.max_gas_amount,
+            "gas_unit_price": ""+_gas.gas_unit_price,
+            "gas_currency_code": ""+_gas.gas_currency_code,
             "expiration_timestamp_secs": (Math.floor(Date.now() / 1000) + exp).toString(), // Unix timestamp, in seconds + 10 minutes ???
             "payload": payload,
         }
@@ -87,7 +85,6 @@ export const TransactionApi = {
     },
 
     async transactionPending(hash){
-        console.log("pending", hash)
         const response = await this.getTransaction(hash)
         if (!response.ok && response.error.code === 404) {
             return true
@@ -97,7 +94,6 @@ export const TransactionApi = {
     },
 
     async waitForTransaction(hash) {
-        console.log("wait", hash)
         let count = 0
         while (await this.transactionPending(hash)) {
             await this.sleep(1000)

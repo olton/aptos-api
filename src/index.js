@@ -9,8 +9,9 @@ import {TransactionApi} from "./api/ext/transactions.js"
 import {ModuleApi} from "./api/ext/modules.js"
 import {CoinApi} from "./api/ext/coins.js"
 import {TokenApi} from "./api/ext/tokens.js"
+import {Gas} from "./api/ext/gas.js"
 
-Api.use(NodeApi, AccountApi, TransactionApi, EventApi, TableApi, ModuleApi, CoinApi, TokenApi)
+Api.use(NodeApi, AccountApi, TransactionApi, EventApi, TableApi, ModuleApi, CoinApi, TokenApi, Gas)
 
 export {
     hexstr,

@@ -1,4 +1,5 @@
 import {Result} from "../../helpers/result.js";
+import {DEFAULT_COIN} from "../../helpers/const.js";
 
 export const AccountApi = {
     getAccount(address){
@@ -25,7 +26,7 @@ export const AccountApi = {
         return this.getTransactions(address, query)
     },
 
-    async getAccountBalance(address, coin = '0x1::TestCoin::TestCoin'){
+    async getAccountBalance(address, coin = DEFAULT_COIN){
         const resource = await this.getAccountResource(address, `0x1::Coin::CoinStore<${coin}>`)
         if (!resource.ok) {
             return new Result(false, "Error getting address balance", resource.error)
