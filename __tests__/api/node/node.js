@@ -17,4 +17,32 @@ describe("Testing Node extension for API", () => {
         expect(result.ok).toBe(true)
         expect(result.payload.epoch > 0).toBe(true)
     })
+
+    it("getChainId()", async () => {
+        const result = await api.getChainId()
+
+        expect(result.ok).toBe(true)
+        expect(result.payload > 0).toBe(true)
+    })
+
+    it("getEpoch()", async () => {
+        const result = await api.getEpoch()
+
+        expect(result.ok).toBe(true)
+        expect(result.payload > 0).toBe(true)
+    })
+
+    it("getVersion()", async () => {
+        const result = await api.getVersion()
+
+        expect(result.ok).toBe(true)
+        expect(result.payload > 0).toBe(true)
+    })
+
+    it("getTimestamp()", async () => {
+        const result = await api.getTimestamp()
+
+        expect(result.ok).toBe(true)
+        expect(result.payload > 0).toBe(true)
+    })
 })
