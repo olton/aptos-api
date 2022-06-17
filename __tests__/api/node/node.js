@@ -1,8 +1,8 @@
-import {Api} from "../../../src/index.js"
+import {Aptos} from "../../../src/index.js"
 
 describe("Testing Node extension for API", () => {
     const apiUrl = "https://fullnode.devnet.aptoslabs.com"
-    const api = new Api(apiUrl)
+    const api = new Aptos(apiUrl)
 
     it("getHealthy()", async () => {
         const result = await api.getHealthy()

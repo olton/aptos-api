@@ -1,9 +1,9 @@
-import {Api} from "../../../src/index.js";
+import {Aptos} from "../../../src/index.js";
 import {TEST_ACCOUNT} from "../../helpers/address.js";
 
 describe("Testing transactions routines", () => {
     const apiUrl = "https://fullnode.devnet.aptoslabs.com"
-    const api = new Api(apiUrl)
+    const api = new Aptos(apiUrl)
 
     it("getTransactions()", async () => {
         const transactions = await api.getTransactions()

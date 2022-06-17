@@ -1,9 +1,9 @@
-import {Api} from "../src/index.js";
+import {Aptos} from "../src/index.js";
 import {debug} from "../__tests__/helpers/debug.js";
 
 const NODE_URL = process.env.APTOS_NODE_URL || 'https://fullnode.devnet.aptoslabs.com';
 
-const api = new Api(NODE_URL)
+const api = new Aptos(NODE_URL)
 
 debug(await api.state())
 debug(await api.getHealthy())

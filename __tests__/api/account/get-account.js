@@ -1,10 +1,10 @@
-import {Api} from "../../../src/index.js"
+import {Aptos} from "../../../src/index.js"
 import {TEST_ACCOUNT} from "../../helpers/address.js";
 import {hexstr} from "../../../src/index.js";
 
 describe("Testing Account extension for API", () => {
     const apiUrl = "https://fullnode.devnet.aptoslabs.com"
-    const api = new Api(apiUrl)
+    const api = new Aptos(apiUrl)
 
     it("getAccount() address with 0x", async () => {
         const result = await api.getAccount(TEST_ACCOUNT.address)

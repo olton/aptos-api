@@ -1,4 +1,4 @@
-import {Api, aptos} from "../../src/index.js"
+import {Aptos, aptos} from "../../src/index.js"
 
 describe("Testing Api exec function", () => {
     const apiUrl = "https://fullnode.devnet.aptoslabs.com"

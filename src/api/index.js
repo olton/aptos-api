@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import {Result} from "../helpers/result.js"
 
-export class Api {
+export class Aptos {
     options = {}
     lastRequest = null
 
@@ -53,6 +53,6 @@ export class Api {
     }
 }
 
-Api.use = (...obj) => Object.assign(Api.prototype, ...obj)
+Aptos.use = (...obj) => Object.assign(Aptos.prototype, ...obj)
 
-export const aptos = (...args) => new Api(...args)
+export const aptos = (...args) => new Aptos(...args)

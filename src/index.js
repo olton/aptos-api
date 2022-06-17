@@ -1,6 +1,6 @@
 import {hexstr, HexString} from "./helpers/hex-string.js"
 import {Account, account} from "./account/index.js"
-import {Api, aptos} from "./api/index.js"
+import {Aptos, aptos} from "./api/index.js"
 import {AccountApi} from "./api/ext/account.js"
 import {NodeApi} from "./api/ext/node.js"
 import {EventApi} from "./api/ext/events.js"
@@ -11,13 +11,13 @@ import {CoinApi} from "./api/ext/coins.js"
 import {TokenApi} from "./api/ext/tokens.js"
 import {Gas} from "./api/ext/gas.js"
 
-Api.use(NodeApi, AccountApi, TransactionApi, EventApi, TableApi, ModuleApi, CoinApi, TokenApi, Gas)
+Aptos.use(NodeApi, AccountApi, TransactionApi, EventApi, TableApi, ModuleApi, CoinApi, TokenApi, Gas)
 
 export {
     hexstr,
     HexString,
     Account,
     account,
-    Api,
+    Aptos,
     aptos
 }
