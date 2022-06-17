@@ -1,6 +1,6 @@
 export default {
   verbose: true,
-  collectCoverage: false,
+  collectCoverage: true,
   "collectCoverageFrom": [
     "**/src/plugins/*.js",
     "**/src/core/*.js",
