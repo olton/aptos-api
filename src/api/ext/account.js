@@ -29,16 +29,16 @@ export const AccountApi = {
     /**
      * Get account balance
      * @param {String} address
-     * @param {String} coin "0xCoinHolderAddress::CoinVal", coinVal -> MoonCoin::MoonCoin
+     * @param {String} coinStruct "0xCoinHolderAddress::CoinPrefix::CoinSuffix"
      * @returns {Promise<Result>}
      */
-    async getAccountBalance(address, coin = DEFAULT_COIN){
-        const resource = await this.getAccountResource(address, `0x1::Coin::CoinStore<${coin}>`)
+    async getAccountBalance(address, coinStruct = DEFAULT_COIN){
+        const resource = await this.getAccountResource(address, `0x1::Coin::CoinStore<${coinStruct}>`)
         if (!resource.ok) {
             return new Result(false, "Error getting address balance", resource.error)
         }
         return new Result(true, "ok", {
-            coin,
+            coin: coinStruct,
             balance: +resource.payload.data.coin.value
         })
     },

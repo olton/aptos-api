@@ -1,11 +1,21 @@
 import {DEFAULT_COIN} from "../../helpers/const.js";
+import {hexstr} from "../../helpers/hex-string.js";
 
 export const CoinApi = {
-    async initCoin(signer, coinHolder, coinVal, coinName, coinSymbol, coinDec = 0){
+    /**
+     * Initialization coin
+     * @param signer
+     * @param {String} coinStruct, to create it, use method coinName(...)
+     * @param coinName
+     * @param coinSymbol
+     * @param coinDec
+     * @returns {Promise<Result|undefined>}
+     */
+    async initCoin(signer, coinStruct, coinName, coinSymbol, coinDec = 0){
         const payload = {
             type: "script_function_payload",
             function: `0x1::ManagedCoin::initialize`,
-            type_arguments: [`0x${this._0x(coinHolder)}::${coinVal}`],
+            type_arguments: [`${coinStruct}`],
             arguments: [
                 Buffer.from(coinName, "utf-8").toString("hex"),
                 Buffer.from(coinSymbol.toUpperCase(), "utf-8").toString("hex"),
@@ -17,11 +27,11 @@ export const CoinApi = {
         return await this.submitTransaction(signer, payload)
     },
 
-    async createCoin(signer, coinHolder, coinVal){
+    async createCoin(signer, coinStruct){
         const payload = {
             "type": "script_function_payload",
             "function": "0x1::Coin::register",
-            "type_arguments": [`0x${coinHolder}::${coinVal}`],
+            "type_arguments": [`${coinStruct}`],
             "arguments": []
         }
 
@@ -52,4 +62,15 @@ export const CoinApi = {
 
         return await this.submitTransaction(signer, payload)
     },
+
+    /**
+     * Create right coin structured name -> 0xCoinHolderAddress::CoinPrefix::CoinSuffix
+     * @param coinHolder
+     * @param coinPrefix
+     * @param coinSuffix
+     * @returns {string}
+     */
+    coinName(coinHolder, coinPrefix, coinSuffix){
+        return `${this._0x(coinHolder)}::${coinPrefix}::${coinSuffix}`
+    }
 }
