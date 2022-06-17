@@ -6,7 +6,7 @@ const {sign} = Nacl
 export const TransactionApi = {
     lastTransaction: null,
 
-    getTransactions(){
+    async getTransactions(){
         let address, query = {start: 1, limit: 25}
 
         if (arguments.length === 1 && typeof arguments[0] === "object") {
@@ -19,11 +19,11 @@ export const TransactionApi = {
 
         const link = `${address ? '/accounts/'+this._0x(address) : ''}/transactions`
 
-        return this._exec(link, query)
+        return await this._exec(link, query)
     },
 
-    getTransaction(hash){
-        return this._exec(`/transactions/${hash}`)
+    async getTransaction(hash){
+        return await this._exec(`/transactions/${hash}`)
     },
 
     async buildTransaction(senderAddress, payload, exp = 600){
@@ -47,15 +47,15 @@ export const TransactionApi = {
     },
 
     async createSigningMessage(txnRequest){
-        return this._exec(`/transactions/signing_message`, null, {
+        return await this._exec(`/transactions/signing_message`, null, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(txnRequest)
         })
     },
 
-    async signTransaction(signer, request = {}){
-        const signedMessage = await this.createSigningMessage(request)
+    async signTransaction(signer, trx = {}){
+        const signedMessage = await this.createSigningMessage(trx)
 
         if (!signedMessage) {
             return new Result(false, "Error creating signing message", signedMessage)
@@ -65,21 +65,39 @@ export const TransactionApi = {
         const signature = sign(toSign, signer.signingKey.secretKey)
         const signatureHex = Buffer.from(signature).toString("hex").slice(0, 128)
 
-        request["signature"] = {
+        trx["signature"] = {
             "type": "ed25519_signature",
             "public_key": `${this._0x(signer.pubKey())}`,
             "signature": `${this._0x(signatureHex)}`,
         }
 
-        return request
+        return trx
     },
 
-    submitTransactionData(data){
-        return this._exec(`/transactions`, null, {
+    async submitTransactionData(data){
+        return await this._exec(`/transactions`, null, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(data)
         })
+    },
+
+    async submitTransaction(account, payload){
+        const transaction = await this.buildTransaction(account.address(), payload)
+        const signedTransaction = await this.signTransaction(account, transaction)
+        const result = await this.submitTransactionData(signedTransaction)
+
+        if (!result.ok) {
+            return new Result(false, "Error submitting transaction data", result.error)
+        }
+
+        try {
+            await this.waitForTransaction(result.payload.hash)
+            this.lastTransaction = (await this.getTransaction(result.payload.hash)).payload
+            return new Result(true, "ok", this.lastTransaction)
+        } catch (e) {
+            return new Result(false, e.message, e.stack)
+        }
     },
 
     async transactionPending(hash){
@@ -102,25 +120,25 @@ export const TransactionApi = {
         }
     },
 
-    async submitTransaction(account, payload){
-        const transaction = this.buildTransaction(account.address(), payload)
-        const signedTransaction = this.signTransaction(account, transaction)
-        const result = await this.submitTransactionData(signedTransaction)
-
-        if (!result.ok) {
-            return new Result(false, "Error submitting transaction data", result)
-        }
-
-        try {
-            await this.waitForTransaction(result.payload.hash)
-            this.lastTransaction = await this.getTransaction(result.payload.hash)
-            return new Result(true, "ok", this.lastTransaction)
-        } catch (e) {
-            return new Result(false, e.message, e.stack)
-        }
-    },
-
     getLastTransaction(){
         return this.lastTransaction
+    },
+
+    lastTransactionStatus(){
+        const {type, version, timestamp, hash, success, gas_used, max_gas_amount, gas_unit_price, sequence_number, vm_status} = this.lastTransaction
+        return {
+            type,
+            hash,
+            version,
+            success,
+            vm_status,
+            timestamp,
+            sequence_number,
+            gas: {
+                gas_used,
+                max_gas_amount,
+                gas_unit_price
+            }
+        }
     }
 }

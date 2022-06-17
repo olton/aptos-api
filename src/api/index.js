@@ -2,12 +2,15 @@ import fetch from 'node-fetch';
 import {Result} from "../helpers/result.js"
 
 export class Aptos {
-    options = {}
+    gas = {
+        max_gas_amount: 2000,
+        gas_unit_price: 1,
+        gas_currency_code: "XUS",
+    }
     lastRequest = null
 
-    constructor(url = "", options = {}, gas = {}) {
+    constructor(url = "", gas = {}) {
         this.url = url
-        Object.assign(this.options, options)
         Object.assign(this.gas, gas)
     }
 
@@ -29,9 +32,9 @@ export class Aptos {
 
         const response = await fetch(this.lastRequest, options)
         const contentType = response.headers.get('Content-Type')
-        const result = contentType === 'application/json' ? await response.json() : await response.text()
+        const result = await (contentType === 'application/json' ? response.json() : response.text())
 
-        if (response.status !== 200) {
+        if (response.status > 202) {
             return new Result(false, result.message ? result.message : result.toString(), result)
         }
 
