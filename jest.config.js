@@ -2,10 +2,7 @@ export default {
   verbose: true,
   collectCoverage: true,
   "collectCoverageFrom": [
-    "**/src/plugins/*.js",
-    "**/src/core/*.js",
-    "**/src/helpers/*.js",
-    "**/src/dataset/*.js",
+    "**/src/**/*.js",
   ],
   transform: {
     "^.+\\.(js)$": "babel-jest",
