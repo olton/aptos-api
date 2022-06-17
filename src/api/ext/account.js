@@ -26,6 +26,12 @@ export const AccountApi = {
         return this.getTransactions(address, query)
     },
 
+    /**
+     * Get account balance
+     * @param {String} address
+     * @param {String} coin "0xCoinHolderAddress::CoinVal", coinVal -> MoonCoin::MoonCoin
+     * @returns {Promise<Result>}
+     */
     async getAccountBalance(address, coin = DEFAULT_COIN){
         const resource = await this.getAccountResource(address, `0x1::Coin::CoinStore<${coin}>`)
         if (!resource.ok) {
@@ -37,7 +43,7 @@ export const AccountApi = {
         })
     },
 
-    createAccount(signer, newAccount, gas){
+    createAccount(signer, newAccount){
         const payload = {
             "type": "script_function_payload",
             "function": "0x1::AptosAccount::create_account",
@@ -47,6 +53,6 @@ export const AccountApi = {
                 this._0x(newAccount.pubKey()), // ???
             ]
         }
-        return this.submitTransaction(signer, payload, gas)
+        return this.submitTransaction(signer, payload)
     }
 }

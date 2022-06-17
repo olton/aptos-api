@@ -26,7 +26,7 @@ export const TransactionApi = {
         return this._exec(`/transactions/${hash}`)
     },
 
-    async buildTransaction(senderAddress, payload, gas = {}, exp = 600){
+    async buildTransaction(senderAddress, payload, exp = 600){
         let account
 
         account = await this._exec(`/accounts/${this._0x(senderAddress)}`)
@@ -35,14 +35,12 @@ export const TransactionApi = {
             return account
         }
 
-        const _gas = Object.assign({}, this.gas, gas)
-
         return {
             "sender": this._0x(senderAddress),
             "sequence_number": ""+account.payload.sequence_number,
-            "max_gas_amount": ""+_gas.max_gas_amount,
-            "gas_unit_price": ""+_gas.gas_unit_price,
-            "gas_currency_code": ""+_gas.gas_currency_code,
+            "max_gas_amount": ""+this.gas.max_gas_amount,
+            "gas_unit_price": ""+this.gas.gas_unit_price,
+            "gas_currency_code": ""+this.gas.gas_currency_code,
             "expiration_timestamp_secs": (Math.floor(Date.now() / 1000) + exp).toString(), // Unix timestamp, in seconds + 10 minutes ???
             "payload": payload,
         }
@@ -104,8 +102,8 @@ export const TransactionApi = {
         }
     },
 
-    async submitTransaction(account, payload, gas){
-        const transaction = this.buildTransaction(account.address(), payload, gas)
+    async submitTransaction(account, payload){
+        const transaction = this.buildTransaction(account.address(), payload)
         const signedTransaction = this.signTransaction(account, transaction)
         const result = await this.submitTransactionData(signedTransaction)
 
