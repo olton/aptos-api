@@ -8,7 +8,6 @@ describe("Testing Api exec function", () => {
         const result = await api.state()
 
         expect(result.ok).toBe(true)
-        expect(result.message).toBe('ok')
         expect(result.payload.epoch > 0).toBe(true)
     })
 
