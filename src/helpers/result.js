@@ -1,11 +1,15 @@
 export class Result {
     constructor(ok, message, data) {
         this.ok = ok
-        this.message = message
         if (!ok) {
+            this.message = message
             this.error = data
         } else {
-            this.payload = data
+            if (arguments.length <= 2) {
+                this.payload = arguments[1]
+            } else {
+                this.payload = data
+            }
         }
     }
 }

@@ -1,3 +1,11 @@
+import {Result} from "../../helpers/result.js";
+import {debug} from "../../../__tests__/helpers/debug.js";
+
+export const TOKEN_STORE = '0x1::Token::TokenStore'
+export const TOKEN_COLLECTIONS = '0x1::Token::Collections'
+export const TOKEN_ID = '0x1::Token::TokenId'
+export const TOKEN_TOKEN = '0x1::Token::Token'
+
 export const TokenApi = {
     /**
      * Create collection
@@ -25,6 +33,31 @@ export const TokenApi = {
         }
 
         return await this.submitTransaction(signer, payload)
+    },
+
+    /**
+     * Get collections for address
+     * @param address
+     * @returns {Promise<Result|*[]>}
+     */
+    async getCollections(address){
+        const resource = await this.getEventsByHandle(this._0x(address), "0x1::Token::Collections", "create_collection_events")
+        if (!resource.ok) {
+            return new Result(false, `No collections found!`, resource.error)
+        }
+        const collections = []
+
+        for(let col of resource.payload) {
+            collections.push({
+                number: +col.sequence_number,
+                name: col.data.collection_name,
+                desc:  col.data.description,
+                creator:  col.data.creator,
+                max: +col.data.maximum.vec[0] || 0
+            })
+        }
+
+        return collections
     },
 
     /**
@@ -60,4 +93,74 @@ export const TokenApi = {
 
         return await this.submitTransaction(signer, payload)
     },
+
+    async getToken(creator, collectionName, tokenName, from = TOKEN_STORE){
+        const store = await this.getAccountResource(creator, from)
+        if (!store.ok) {
+            return new Result(false, "Can't obtain token data from TokenStore", store.error)
+        }
+        const token_id = {
+            creator: creator,
+            collection: collectionName,
+            name: tokenName,
+        }
+        const handle = store["payload"]["data"][from === TOKEN_STORE ? "tokens" : "token_data"]["handle"]
+        return await this.getTableItem(
+            handle,
+            TOKEN_ID,
+            TOKEN_TOKEN,
+            token_id,
+        )
+    },
+
+    async tokenCreateOffer(signer, receiver, creator,  collectionName, tokenName, amount){
+        const payload = {
+            type: "script_function_payload",
+            function: "0x1::TokenTransfers::offer_script",
+            type_arguments: [],
+            arguments: [
+                receiver,
+                creator,
+                Buffer.from(collectionName).toString("hex"),
+                Buffer.from(tokenName).toString("hex"),
+                amount.toString(),
+            ],
+        }
+
+        return await this.submitTransaction(signer, payload)
+    },
+
+    async tokenClaimOffer(signer, claimer, creator, collectionName, tokenName){
+        const payload = {
+            type: "script_function_payload",
+            function: "0x1::TokenTransfers::claim_script",
+            type_arguments: [],
+            arguments: [
+                claimer,
+                creator,
+                Buffer.from(collectionName).toString("hex"),
+                Buffer.from(tokenName).toString("hex"),
+            ],
+        }
+
+        return await this.submitTransaction(signer, payload)
+    },
+
+    async tokenCancelOffer(signer, receiver, creator, tokenCreationNum){
+        const payload = {
+            type: "script_function_payload",
+            function: "0x1::TokenTransfers::cancel_offer_script",
+            type_arguments: [],
+            arguments: [
+                receiver,
+                creator,
+                tokenCreationNum.toString()
+            ],
+        }
+
+        return await this.submitTransaction(signer, payload)
+    },
+
+    async getCollectionsWithTokens(){},
+    async getCollectionWithTokens(){}
 }

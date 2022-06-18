@@ -5,7 +5,8 @@ import {debug} from "../__tests__/helpers/debug.js";
 
 const NODE_URL = process.env.APTOS_NODE_URL || 'https://fullnode.devnet.aptoslabs.com';
 
-const account = new Account(TEST_ACCOUNT.privateKey)
-const api = new Aptos(NODE_URL)
+const api = new Aptos(NODE_URL, {
+    max_gas_amount: 2000
+})
 
-debug(await api.getAccountResource(account.address(), "0x1::Token::Collections"))
+debug(await api.getCollections(TEST_ACCOUNT.address))

@@ -1,11 +1,11 @@
 export const ModuleApi = {
-    publishModule(signer, moduleHex){
+    async publishModule(signer, moduleHex){
         const payload = {
             "type": "module_bundle_payload",
             "modules": [
                 {"bytecode": `${this._0x(moduleHex)}`},
             ],
         }
-        return this.submitTransaction(signer, payload)
+        return await this.submitTransaction(signer, payload)
     }
 }

@@ -1,11 +1,23 @@
-import {DEFAULT_COIN} from "../../helpers/const.js";
+import {TEST_COIN} from "../../helpers/const.js";
 import {hexstr} from "../../helpers/hex-string.js";
+import {Result} from "../../helpers/result.js";
 
 export const CoinApi = {
     /**
+     * Create right coin structured name -> 0xCoinHolderAddress::CoinPrefix::CoinSuffix, 0x1::TestCoin::TestCoin
+     * @param coinHolder
+     * @param moduleName
+     * @param structName
+     * @returns {string}
+     */
+    coinStruct(coinHolder, moduleName, structName){
+        return `${this._0x(coinHolder)}::${moduleName}::${structName}`
+    },
+
+    /**
      * Initialization coin
      * @param signer
-     * @param {String} coinStruct, to create it, use method coinName(...)
+     * @param {String} coinStruct, to create it, use method coinStruct(...)
      * @param coinName
      * @param coinSymbol
      * @param coinDec
@@ -27,7 +39,7 @@ export const CoinApi = {
         return await this.submitTransaction(signer, payload)
     },
 
-    async createCoin(signer, coinStruct){
+    async registerCoin(signer, coinStruct){
         const payload = {
             "type": "script_function_payload",
             "function": "0x1::Coin::register",
@@ -36,6 +48,30 @@ export const CoinApi = {
         }
 
         return await this.submitTransaction(signer, payload)
+    },
+
+    async createCoin(signer, coinStruct, coinName, coinSymbol, coinDec = 0){
+        const initialization = await this.initCoin(signer, coinStruct, coinName, coinSymbol, coinDec)
+
+        if (!initialization.ok) {
+            return new Result(false, "Can't init coin!", initialization.error)
+        }
+
+        if (!initialization.payload.success) {
+            return new Result(false, `Coin initialization error! ${initialization.payload.vm_status}`, initialization.payload)
+        }
+
+        const registration = await this.registerCoin(signer, coinStruct)
+
+        if (!registration.ok) {
+            return new Result(false, "Can't register coin!", initialization.error)
+        }
+
+        if (!registration.payload.success) {
+            return new Result(false, `Coin registration error! ${registration.payload.vm_status}`, registration.payload)
+        }
+
+        return new Result(true, {initialization, registration})
     },
 
     async mintCoin(signer, coinHolder, receiver, coinVal, amount){
@@ -52,7 +88,7 @@ export const CoinApi = {
         return await this.submitTransaction(signer, payload)
     },
 
-    async sendCoin(signer, receiver, amount = 0, coin = DEFAULT_COIN){
+    async sendCoin(signer, receiver, amount = 0, coin = TEST_COIN){
         const payload = {
             type: 'script_function_payload',
             function: '0x1::Coin::transfer',
@@ -63,14 +99,22 @@ export const CoinApi = {
         return await this.submitTransaction(signer, payload)
     },
 
-    /**
-     * Create right coin structured name -> 0xCoinHolderAddress::CoinPrefix::CoinSuffix
-     * @param coinHolder
-     * @param coinPrefix
-     * @param coinSuffix
-     * @returns {string}
-     */
-    coinName(coinHolder, coinPrefix, coinSuffix){
-        return `${this._0x(coinHolder)}::${coinPrefix}::${coinSuffix}`
-    }
+    async getDepositedCoins(address, coinStruct){
+        return await this.getEventsByHandle(
+            this._0x(address),
+            `0x1::Coin::CoinStore<${coinStruct}>`,
+            "deposit_events"
+        )
+    },
+
+    async getWithdrawCoins(address, coinStruct){
+        return await this.getEventsByHandle(
+            this._0x(address),
+            `0x1::Coin::CoinStore<${coinStruct}>`,
+            "withdraw_events"
+        )
+    },
+
+    async sentCoins(){},
+
 }
