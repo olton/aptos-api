@@ -1,7 +1,6 @@
 import {Result} from "../../helpers/result.js";
 import {TEST_COIN} from "../../helpers/const.js";
-import assert from "assert";
-import {hexstr} from "../../helpers/hex-string";
+import {hexstr} from "../../helpers/hex-string.js";
 
 export const AccountApi = {
     /**

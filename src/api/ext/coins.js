@@ -88,7 +88,7 @@ export const CoinApi = {
         return await this.submitTransaction(signer, payload)
     },
 
-    async sendCoin(signer, receiver, amount = 0, coin = TEST_COIN){
+    async sendCoins(signer, receiver, amount = 0, coin = TEST_COIN){
         const payload = {
             type: 'script_function_payload',
             function: '0x1::Coin::transfer',

@@ -20,10 +20,7 @@ export class Faucet {
         const hashes = result
         const promises = []
 
-        console.log("Hashes", typeof hashes)
-
         for(let hash of hashes) {
-            console.log(hash)
             promises.push(this.api.waitForTransaction(hash))
         }
 
