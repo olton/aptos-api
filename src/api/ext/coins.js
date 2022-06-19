@@ -74,11 +74,11 @@ export const CoinApi = {
         return new Result(true, {initialization, registration})
     },
 
-    async mintCoin(signer, coinHolder, receiver, coinVal, amount){
+    async mintCoin(signer, receiver, coinStruct, amount){
         const payload = {
             type: "script_function_payload",
             function: `0x1::ManagedCoin::mint`,
-            type_arguments: [`0x${coinHolder}::${coinVal}`],
+            type_arguments: [coinStruct],
             arguments: [
                 receiver,
                 amount.toString()
@@ -114,7 +114,4 @@ export const CoinApi = {
             "withdraw_events"
         )
     },
-
-    async sentCoins(){},
-
 }
