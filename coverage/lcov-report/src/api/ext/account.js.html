@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.84% </span>
+                <span class="strong">38.88% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>7/13</span>
+                <span class='fraction'>7/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">28.57% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/4</span>
+                <span class='fraction'>2/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">44.44% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/8</span>
+                <span class='fraction'>4/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.84% </span>
+                <span class="strong">38.88% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/13</span>
+                <span class='fraction'>7/18</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -120,7 +120,19 @@
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
@@ -144,6 +156,18 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -181,28 +205,40 @@
 import {TEST_COIN} from "../../helpers/const.js";
 &nbsp;
 export const AccountApi = {
-    getAccount(address){
-        return this._exec(`/accounts/${this._0x(address)}`)
+    async getAccount(address){
+        return await this._exec(`/accounts/${this._0x(address)}`)
     },
 &nbsp;
-    getAccountResources(address){
-        return this._exec(`/accounts/${this._0x(address)}/resources`)
+    async getAccountResources(address){
+        return await this._exec(`/accounts/${this._0x(address)}/resources`)
     },
 &nbsp;
-    getAccountResource(address, resource){
-        return this._exec(`/accounts/${this._0x(address)}/resource/${resource}`)
+    async getAccountResource(address, resource){
+        return await this._exec(`/accounts/${this._0x(address)}/resource/${resource}`)
     },
 &nbsp;
-<span class="fstat-no" title="function not covered" >    ge</span>tAccountModules(address){
-<span class="cstat-no" title="statement not covered" >        return this._exec(`/accounts/${this._0x(address)}/modules`)</span>
+<span class="fstat-no" title="function not covered" >    as</span>ync getAccountModules(address){
+<span class="cstat-no" title="statement not covered" >        return await this._exec(`/accounts/${this._0x(address)}/modules`)</span>
     },
 &nbsp;
-<span class="fstat-no" title="function not covered" >    ge</span>tAccountModule(address, module){
-<span class="cstat-no" title="statement not covered" >        return this._exec(`/accounts/${this._0x(address)}/module/${module}`)</span>
+<span class="fstat-no" title="function not covered" >    as</span>ync getAccountModule(address, module){
+<span class="cstat-no" title="statement not covered" >        return await this._exec(`/accounts/${this._0x(address)}/module/${module}`)</span>
     },
 &nbsp;
-<span class="fstat-no" title="function not covered" >    ge</span>tAccountTransactions(address, query = <span class="branch-0 cbranch-no" title="branch not covered" >{start: 1, limit: 25})</span>{
-<span class="cstat-no" title="statement not covered" >        return this.getTransactions(address, query)</span>
+<span class="fstat-no" title="function not covered" >    as</span>ync getAccountTransactions(address, query = <span class="branch-0 cbranch-no" title="branch not covered" >{start: 1, limit: 25})</span>{
+<span class="cstat-no" title="statement not covered" >        return await this.getTransactions(address, query)</span>
+    },
+&nbsp;
+<span class="fstat-no" title="function not covered" >    as</span>ync getAccountTransactionsLast(address, limit = <span class="branch-0 cbranch-no" title="branch not covered" >1)</span>{
+        const account = <span class="cstat-no" title="statement not covered" >await this.getAccount(address)</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if (!account.ok) {</span>
+<span class="cstat-no" title="statement not covered" >            return new Result(false, "Can't retrieve account information from the blockchain!", account.error)</span>
+        }
+&nbsp;
+        const sn = <span class="cstat-no" title="statement not covered" >account.payload.sequence_number</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        return await this.getAccountTransactions(address, {limit, start: sn - limit})</span>
     },
 &nbsp;
     /**
@@ -222,7 +258,7 @@ export const AccountApi = {
         })
     },
 &nbsp;
-<span class="fstat-no" title="function not covered" >    cr</span>eateAccount(signer, newAccount){
+<span class="fstat-no" title="function not covered" >    as</span>ync createAccount(signer, newAccount){
         const payload = <span class="cstat-no" title="statement not covered" >{</span>
             "type": "script_function_payload",
             "function": "0x1::AptosAccount::create_account",
@@ -232,7 +268,7 @@ export const AccountApi = {
                 this._0x(newAccount.pubKey()), // ???
             ]
         }
-<span class="cstat-no" title="statement not covered" >        return this.submitTransaction(signer, payload)</span>
+<span class="cstat-no" title="statement not covered" >        return await this.submitTransaction(signer, payload)</span>
     }
 }</pre></td></tr></table></pre>
 
@@ -241,7 +277,7 @@ export const AccountApi = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Sat Jun 18 2022 21:34:09 GMT+0300 (за східноєвропейським літнім часом)
+                at Sun Jun 19 2022 11:53:32 GMT+0300 (за східноєвропейським літнім часом)
             </div>
         <script src="../../../prettify.js"></script>
         <script>
