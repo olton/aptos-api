@@ -1,3 +1,5 @@
+import {debug} from "../../helpers/debug.js";
+
 export const ModuleApi = {
     async publishModule(signer, moduleHex){
         const payload = {
@@ -6,6 +8,7 @@ export const ModuleApi = {
                 {"bytecode": `${this._0x(moduleHex)}`},
             ],
         }
+
         return await this.submitTransaction(signer, payload)
     }
 }

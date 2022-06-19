@@ -1,5 +1,5 @@
 import {Result} from "../../helpers/result.js";
-import {debug} from "../../../__tests__/helpers/debug.js";
+import {debug} from "../../helpers/debug.js";
 
 export const TOKEN_STORE = '0x1::Token::TokenStore'
 export const TOKEN_COLLECTIONS = '0x1::Token::Collections'

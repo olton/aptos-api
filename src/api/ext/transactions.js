@@ -1,5 +1,6 @@
 import Nacl from "tweetnacl"
 import {Result} from "../../helpers/result.js";
+import {debug} from "../../helpers/debug.js";
 
 const {sign} = Nacl
 
@@ -8,16 +9,22 @@ export const TransactionApi = {
 
     async getTransactions(){
         let address, query = {start: 1, limit: 25}
+        let args = [...arguments]
 
-        if (arguments.length === 1 && typeof arguments[0] === "object") {
+        if (args.length === 1 && typeof args[0] === "object") {
             address = undefined
-            query = arguments[0]
+            query = args[0]
         } else
-        if (arguments.length === 1 && typeof arguments[0] === "string") {
-            address = arguments[0]
+        if (args.length === 1 && typeof args[0] === "string") {
+            address = args[0]
+        } else {
+            address = args[0]
+            query = args[1]
         }
 
         const link = `${address ? '/accounts/'+this._0x(address) : ''}/transactions`
+
+        debug(args)
 
         return await this._exec(link, query)
     },

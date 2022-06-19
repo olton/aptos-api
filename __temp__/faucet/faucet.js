@@ -1,7 +1,7 @@
-import {Account} from "../src/index.js";
-import {Aptos} from "../src/index.js";
-import {Faucet} from "../src/api/faucet.js";
-import {TEST_ACCOUNT} from "../__tests__/helpers/address.js";
+import {Account} from "../../src/index.js";
+import {Aptos} from "../../src/index.js";
+import {Faucet} from "../../src/api/faucet.js";
+import {TEST_ACCOUNT} from "../../__tests__/helpers/address.js";
 
 const NODE_URL = process.env.APTOS_NODE_URL || 'https://fullnode.devnet.aptoslabs.com';
 const FAUCET_URL = process.env.APTOS_FAUCET_URL || 'https://faucet.devnet.aptoslabs.com';

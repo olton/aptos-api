@@ -2,28 +2,40 @@ import {Result} from "../../helpers/result.js";
 import {TEST_COIN} from "../../helpers/const.js";
 
 export const AccountApi = {
-    getAccount(address){
-        return this._exec(`/accounts/${this._0x(address)}`)
+    async getAccount(address){
+        return await this._exec(`/accounts/${this._0x(address)}`)
     },
 
-    getAccountResources(address){
-        return this._exec(`/accounts/${this._0x(address)}/resources`)
+    async getAccountResources(address){
+        return await this._exec(`/accounts/${this._0x(address)}/resources`)
     },
 
-    getAccountResource(address, resource){
-        return this._exec(`/accounts/${this._0x(address)}/resource/${resource}`)
+    async getAccountResource(address, resource){
+        return await this._exec(`/accounts/${this._0x(address)}/resource/${resource}`)
     },
 
-    getAccountModules(address){
-        return this._exec(`/accounts/${this._0x(address)}/modules`)
+    async getAccountModules(address){
+        return await this._exec(`/accounts/${this._0x(address)}/modules`)
     },
 
-    getAccountModule(address, module){
-        return this._exec(`/accounts/${this._0x(address)}/module/${module}`)
+    async getAccountModule(address, module){
+        return await this._exec(`/accounts/${this._0x(address)}/module/${module}`)
     },
 
-    getAccountTransactions(address, query = {start: 1, limit: 25}){
-        return this.getTransactions(address, query)
+    async getAccountTransactions(address, query = {start: 1, limit: 25}){
+        return await this.getTransactions(address, query)
+    },
+
+    async getAccountTransactionsLast(address, limit = 1){
+        const account = await this.getAccount(address)
+
+        if (!account.ok) {
+            return new Result(false, "Can't retrieve account information from the blockchain!", account.error)
+        }
+
+        const sn = account.payload.sequence_number
+
+        return await this.getAccountTransactions(address, {limit, start: sn - limit})
     },
 
     /**
@@ -43,7 +55,7 @@ export const AccountApi = {
         })
     },
 
-    createAccount(signer, newAccount){
+    async createAccount(signer, newAccount){
         const payload = {
             "type": "script_function_payload",
             "function": "0x1::AptosAccount::create_account",
@@ -53,6 +65,6 @@ export const AccountApi = {
                 this._0x(newAccount.pubKey()), // ???
             ]
         }
-        return this.submitTransaction(signer, payload)
+        return await this.submitTransaction(signer, payload)
     }
 }
