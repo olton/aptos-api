@@ -72,6 +72,7 @@ export class Account {
         return {
             address: this.address(),
             publicKey: this.pubKey(),
+            authKey: this.authKey(),
             privateKey: this.privateKey(),
         };
     }

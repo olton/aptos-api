@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1655628958802" clover="3.2.0">
-  <project timestamp="1655628958802" name="All files">
-    <metrics statements="266" coveredstatements="116" conditionals="130" coveredconditionals="51" methods="89" coveredmethods="32" elements="485" coveredelements="199" complexity="0" loc="266" ncloc="266" packages="5" files="17" classes="17"/>
+<coverage generated="1655630235549" clover="3.2.0">
+  <project timestamp="1655630235549" name="All files">
+    <metrics statements="266" coveredstatements="116" conditionals="130" coveredconditionals="51" methods="88" coveredmethods="32" elements="484" coveredelements="199" complexity="0" loc="266" ncloc="266" packages="5" files="17" classes="17"/>
     <package name="src">
       <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="index.js" path="P:\Projects\Aptos\API\src\index.js">
@@ -107,7 +107,7 @@
       </file>
     </package>
     <package name="src.api.ext">
-      <metrics statements="160" coveredstatements="44" conditionals="75" coveredconditionals="15" methods="50" coveredmethods="11"/>
+      <metrics statements="160" coveredstatements="44" conditionals="75" coveredconditionals="15" methods="49" coveredmethods="11"/>
       <file name="account.js" path="P:\Projects\Aptos\API\src\api\ext\account.js">
         <metrics statements="18" coveredstatements="7" conditionals="7" coveredconditionals="2" methods="9" coveredmethods="4"/>
         <line num="4" count="7" type="stmt"/>
@@ -130,7 +130,7 @@
         <line num="68" count="0" type="stmt"/>
       </file>
       <file name="coins.js" path="P:\Projects\Aptos\API\src\api\ext\coins.js">
-        <metrics statements="23" coveredstatements="1" conditionals="12" coveredconditionals="0" methods="9" coveredmethods="0"/>
+        <metrics statements="23" coveredstatements="1" conditionals="12" coveredconditionals="0" methods="8" coveredmethods="0"/>
         <line num="5" count="7" type="stmt"/>
         <line num="14" count="0" type="stmt"/>
         <line num="27" count="0" type="stmt"/>

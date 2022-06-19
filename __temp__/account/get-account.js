@@ -8,6 +8,8 @@ const NODE_URL = process.env.APTOS_NODE_URL || 'https://fullnode.devnet.aptoslab
 const account = new Account(TEST_ACCOUNT.privateKey)
 const api = new Aptos(NODE_URL)
 
+debug(account.toObject())
+
 const result = await api.getAccount(account.address())
 
 debug(result)
