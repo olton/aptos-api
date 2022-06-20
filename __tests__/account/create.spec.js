@@ -1,7 +1,5 @@
 import {Account, account} from "../../src/index.js"
 
-
-
 describe('Testing Aptos Account', () => {
     let _account, _address, _accountObj
 

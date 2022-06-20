@@ -114,4 +114,6 @@ export const CoinApi = {
             "withdraw_events"
         )
     },
+
+    async delegateCoins(){},
 }
