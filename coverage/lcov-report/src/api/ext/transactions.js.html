@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">3.7% </span>
+                <span class="strong">22.22% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/54</span>
+                <span class='fraction'>12/54</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">34.61% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/26</span>
+                <span class='fraction'>9/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">9.09% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>1/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">3.77% </span>
+                <span class="strong">22.64% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/53</span>
+                <span class='fraction'>12/53</span>
             </div>
         
             
@@ -217,31 +217,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -372,26 +372,26 @@ const {sign} = Nacl
 export const TransactionApi = {
     lastTransaction: null,
 &nbsp;
-<span class="fstat-no" title="function not covered" >    as</span>ync getTransactions(){
-        let address, query = <span class="cstat-no" title="statement not covered" >{start: 1, limit: 25}</span>
-        let args = <span class="cstat-no" title="statement not covered" >[...arguments]</span>
+    async getTransactions(){
+        let address, query = {start: 1, limit: 25}
+        let args = [...arguments]
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if (args.length === 1 &amp;&amp; typeof args[0] === "object") {</span>
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (args.length === 1 &amp;&amp; typeof args[0] === "object") {
 <span class="cstat-no" title="statement not covered" >            address = undefined</span>
 <span class="cstat-no" title="statement not covered" >            query = args[0]</span>
         } else
-<span class="cstat-no" title="statement not covered" >        if (args.length === 1 &amp;&amp; typeof args[0] === "string") {</span>
-<span class="cstat-no" title="statement not covered" >            address = args[0]</span>
+        if (args.length === 1 &amp;&amp; typeof args[0] === "string") {
+            address = args[0]
         } else {
-<span class="cstat-no" title="statement not covered" >            address = args[0]</span>
-<span class="cstat-no" title="statement not covered" >            query = args[1]</span>
+            address = args[0]
+            query = args[1]
         }
 &nbsp;
-        const link = <span class="cstat-no" title="statement not covered" >`${address ? '/accounts/'+this._0x(address) : ''}/transactions`</span>
+        const link = `${address ? '/accounts/'+this._0x(address) : ''}/transactions`
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        debug(args)</span>
+        debug(args)
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        return await this._exec(link, query)</span>
+        return await this._exec(link, query)
     },
 &nbsp;
 <span class="fstat-no" title="function not covered" >    as</span>ync getTransaction(hash){
@@ -520,7 +520,7 @@ export const TransactionApi = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon Jun 20 2022 16:32:36 GMT+0300 (за східноєвропейським літнім часом)
+                at Fri Jul 29 2022 21:56:10 GMT+0300 (за східноєвропейським літнім часом)
             </div>
         <script src="../../../prettify.js"></script>
         <script>

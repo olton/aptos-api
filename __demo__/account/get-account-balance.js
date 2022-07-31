@@ -6,6 +6,6 @@ const NODE_URL = process.env.APTOS_NODE_URL || 'https://fullnode.devnet.aptoslab
 
 const api = new Aptos(NODE_URL)
 
-const result = await api.getAccountBalance(Alice.address)
+const result = await api.getAccountBalance(Alice.address, "0x1::aptos_coin::AptosCoin")
 
 debug(result)

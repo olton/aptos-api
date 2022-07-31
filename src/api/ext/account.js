@@ -85,7 +85,7 @@ export const AccountApi = {
      * @returns {Promise<Result>}
      */
     async getAccountBalance(address, coinStruct = TEST_COIN){
-        const resource = await this.getAccountResource(address, `0x1::Coin::CoinStore<${coinStruct}>`)
+        const resource = await this.getAccountResource(address, `0x1::coin::CoinStore<${coinStruct}>`)
         if (!resource.ok) {
             return new Result(false, "Error getting address balance", resource.error)
         }
