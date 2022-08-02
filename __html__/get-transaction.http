@@ -1,0 +1,6 @@
+
+GET https://fullnode.aptos-node.net/transactions/0xb8885126369e72e9b33d3bbb2600df592ea44b372473b7cf725602101f0bbbd4
+Content-Type: application/json
+
+###
+

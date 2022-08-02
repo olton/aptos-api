@@ -1,6 +1,6 @@
-import {TEST_COIN} from "../../helpers/const.js";
-import {hexstr} from "../../helpers/hex-string.js";
 import {Result} from "../../helpers/result.js";
+
+export const APTOS_TOKEN = "0x1::aptos_coin::AptosCoin"
 
 export const CoinApi = {
     /**
@@ -88,7 +88,7 @@ export const CoinApi = {
         return await this.submitTransaction(signer, payload)
     },
 
-    async sendCoins(signer, receiver, amount = 0, coin = TEST_COIN){
+    async sendCoins(signer, receiver, amount = 0, coin = APTOS_TOKEN){
         const payload = {
             type: 'script_function_payload',
             function: '0x1::Coin::transfer',

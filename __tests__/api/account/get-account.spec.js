@@ -1,22 +1,22 @@
 import {Aptos} from "../../../src/index.js"
-import {TEST_ACCOUNT} from "../../helpers/address.js";
 import {hexstr} from "../../../src/index.js";
+import {Alice} from "../../../__demo__/helpers/alice.js";
 
 describe("Testing Account extension for API", () => {
     const apiUrl = "https://fullnode.devnet.aptoslabs.com"
     const api = new Aptos(apiUrl)
 
     it("getAccount() address with 0x", async () => {
-        const result = await api.getAccount(TEST_ACCOUNT.address)
+        const result = await api.getAccount(Alice.address)
 
         expect(result.ok).toBe(true)
-        expect(result.payload.authentication_key).toBe(TEST_ACCOUNT.address)
+        expect(result.payload.authentication_key).toBe(Alice.address)
     })
 
     it("getAccount() address without 0x", async () => {
-        const result = await api.getAccount(hexstr(TEST_ACCOUNT.address).noPrefix())
+        const result = await api.getAccount(hexstr(Alice.address).noPrefix())
 
         expect(result.ok).toBe(true)
-        expect(result.payload.authentication_key).toBe(TEST_ACCOUNT.address)
+        expect(result.payload.authentication_key).toBe(Alice.address)
     })
 })

@@ -1,6 +1,6 @@
 import {Result} from "../../helpers/result.js";
-import {TEST_COIN} from "../../helpers/const.js";
 import {hexstr} from "../../helpers/hex-string.js";
+import {APTOS_TOKEN} from "./coins.js";
 
 export const AccountApi = {
     /**
@@ -84,7 +84,7 @@ export const AccountApi = {
      * @param {String} coinStruct "0xCoinHolderAddress::CoinPrefix::CoinSuffix"
      * @returns {Promise<Result>}
      */
-    async getAccountBalance(address, coinStruct = TEST_COIN){
+    async getAccountBalance(address, coinStruct = APTOS_TOKEN){
         const resource = await this.getAccountResource(address, `0x1::coin::CoinStore<${coinStruct}>`)
         if (!resource.ok) {
             return new Result(false, "Error getting address balance", resource.error)

@@ -1,5 +1,6 @@
 import fetch from 'node-fetch';
 import {Result} from "../helpers/result.js"
+import {APTOS_TOKEN} from "./ext/coins.js";
 
 export class Aptos {
     gas = {
@@ -8,6 +9,7 @@ export class Aptos {
         gas_currency_code: "XUS",
     }
     lastRequest = null
+    defaultToken = APTOS_TOKEN
 
     constructor(url = "", gas = {}) {
         this.url = url
