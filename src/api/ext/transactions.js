@@ -34,23 +34,23 @@ export const TransactionApi = {
     },
 
     async buildTransaction(senderAddress, payload, exp = 600){
-        let account
+        let account, address = this._0x(senderAddress)
 
-        account = await this._exec(`/accounts/${this._0x(senderAddress)}`)
+        account = await this._exec(`/accounts/${address}`)
 
         if (!account.ok) {
             return account
         }
 
-        return {
-            "sender": this._0x(senderAddress),
+        return new Result(true, "OK", {
+            "sender": address,
             "sequence_number": ""+account.payload.sequence_number,
             "max_gas_amount": ""+this.gas.max_gas_amount,
             "gas_unit_price": ""+this.gas.gas_unit_price,
             "gas_currency_code": ""+this.gas.gas_currency_code,
             "expiration_timestamp_secs": (Math.floor(Date.now() / 1000) + exp).toString(), // Unix timestamp, in seconds + 10 minutes ???
             "payload": payload,
-        }
+        })
     },
 
     async createSigningMessage(txnRequest){
@@ -63,11 +63,9 @@ export const TransactionApi = {
 
     async signTransaction(signer, trx = {}){
         const signedMessage = await this.createSigningMessage(trx)
-
-        if (!signedMessage) {
-            return new Result(false, "Error creating signing message", signedMessage)
+        if (!signedMessage.ok) {
+            return new Result(false, signedMessage.message, signedMessage)
         }
-
         const toSign = Buffer.from(signedMessage.payload.message.substring(2), "hex")
         const signature = sign(toSign, signer.signingKey.secretKey)
         const signatureHex = Buffer.from(signature).toString("hex").slice(0, 128)
@@ -78,7 +76,7 @@ export const TransactionApi = {
             "signature": `${this._0x(signatureHex)}`,
         }
 
-        return trx
+        return new Result(true, "OK", trx)
     },
 
     async submitTransactionData(data){
@@ -91,8 +89,11 @@ export const TransactionApi = {
 
     async submitTransaction(account, payload){
         const transaction = await this.buildTransaction(account.address(), payload)
-        const signedTransaction = await this.signTransaction(account, transaction)
-        const result = await this.submitTransactionData(signedTransaction)
+        if (!transaction.ok) return new Result(false, transaction.message, transaction)
+
+        const signedTransaction = await this.signTransaction(account, transaction.payload)
+        if (!signedTransaction.ok) return new Result(false, signedTransaction.message, signedTransaction)
+        const result = await this.submitTransactionData(signedTransaction.payload)
 
         if (!result.ok) {
             return new Result(false, "Error submitting transaction data", result.error)
@@ -112,7 +113,6 @@ export const TransactionApi = {
         if (!response.ok && response.error.code === 404) {
             return true
         }
-        if (!response.payload) console.log(response)
         return response.payload.type === "pending_transaction"
     },
 

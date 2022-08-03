@@ -91,11 +91,10 @@ export const CoinApi = {
     async sendCoins(signer, receiver, amount = 0, coin = APTOS_TOKEN){
         const payload = {
             type: 'script_function_payload',
-            function: '0x1::Coin::transfer',
+            function: '0x1::coin::transfer',
             type_arguments: [coin],
             arguments: [this._0x(receiver), amount.toString()],
         }
-
         return await this.submitTransaction(signer, payload)
     },
 

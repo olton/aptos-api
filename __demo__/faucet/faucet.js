@@ -9,9 +9,13 @@ import {Alice} from "../helpers/alice.js";
 const account = new Account(Alice.privateKey)
 const api = new Aptos(NODE_URL)
 const faucet = new Faucet(FAUCET_URL, api)
+let balance, fund
 
-const result = await faucet.fundAccount(account.address(), 1_000_000)
-debug(result)
+balance = await api.getAccountBalance(account.address())
+debug(balance)
 
-const balance = await api.getAccountBalance(account.address())
+fund = await faucet.fundAccount(account.address(), -100)
+debug(fund)
+
+balance = await api.getAccountBalance(account.address())
 debug(balance)
