@@ -23,7 +23,7 @@ console.log(`Bob balance:`, await api.getAccountBalance(bob.address()))
 console.log(`=== Send coins from Alice to Bob ===`)
 
 const sent = await api.sendCoins(alice, bob.address(), 100)
-console.log(sent)
+console.log(JSON.stringify(sent, null, 2))
 
 console.log(`Alice balance:`, await api.getAccountBalance(alice.address()))
 console.log(`Bob balance:`, await api.getAccountBalance(bob.address()))

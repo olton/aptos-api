@@ -1,6 +1,7 @@
 import Nacl from "tweetnacl"
 import {Result} from "../../helpers/result.js";
 import {debug} from "../../helpers/debug.js";
+import {TRANS_BY_HASH, TRANS_BY_VERSION} from "../../helpers/const.js";
 
 const {sign} = Nacl
 
@@ -8,7 +9,7 @@ export const TransactionApi = {
     lastTransaction: null,
 
     async getTransactions(){
-        let address, query = {start: 1, limit: 25}
+        let address, query = {start: 0, limit: 25}
         let args = [...arguments]
 
         if (args.length === 1 && typeof args[0] === "object") {
@@ -29,8 +30,16 @@ export const TransactionApi = {
         return await this._exec(link, query)
     },
 
-    async getTransaction(hash){
-        return await this._exec(`/transactions/${hash}`)
+    async getTransaction(hash, by = TRANS_BY_HASH){
+        return await this._exec(`/transactions/${by}/${hash}`)
+    },
+
+    async getTransactionByHash(hash){
+        return await this.getTransaction(hash, TRANS_BY_HASH)
+    },
+
+    async getTransactionByVersion(version){
+        return await this.getTransaction(version, TRANS_BY_VERSION)
     },
 
     async buildTransaction(senderAddress, payload, exp = 600){
@@ -54,7 +63,7 @@ export const TransactionApi = {
     },
 
     async createSigningMessage(txnRequest){
-        return await this._exec(`/transactions/signing_message`, null, {
+        return await this._exec(`/transactions/encode_submission`, null, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(txnRequest)
@@ -87,12 +96,21 @@ export const TransactionApi = {
         })
     },
 
+    async simulateTransaction(data){
+        return await this._exec(`/transactions/simulate`, null, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(data)
+        })
+    },
+
     async submitTransaction(account, payload){
         const transaction = await this.buildTransaction(account.address(), payload)
         if (!transaction.ok) return new Result(false, transaction.message, transaction)
 
         const signedTransaction = await this.signTransaction(account, transaction.payload)
         if (!signedTransaction.ok) return new Result(false, signedTransaction.message, signedTransaction)
+
         const result = await this.submitTransactionData(signedTransaction.payload)
 
         if (!result.ok) {

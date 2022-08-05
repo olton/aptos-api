@@ -1,6 +1,6 @@
 import {Result} from "../../helpers/result.js";
 import {hexstr} from "../../helpers/hex-string.js";
-import {APTOS_TOKEN} from "./coins.js";
+import {APTOS_TOKEN} from "../../helpers/const.js";
 
 export const AccountApi = {
     /**
@@ -8,8 +8,8 @@ export const AccountApi = {
      * @param {String} address
      * @returns {Promise<Result>}
      */
-    async getAccount(address){
-        return await this._exec(`/accounts/${this._0x(address)}`)
+    async getAccount(address, query = {ledger_version: null}){
+        return await this._exec(`/accounts/${this._0x(address)}`, query)
     },
 
     /**
@@ -17,8 +17,8 @@ export const AccountApi = {
      * @param {String} address
      * @returns {Promise<Result>}
      */
-    async getAccountResources(address){
-        return await this._exec(`/accounts/${this._0x(address)}/resources`)
+    async getAccountResources(address, query = {ledger_version: null}){
+        return await this._exec(`/accounts/${this._0x(address)}/resources`, query)
     },
 
     /**
@@ -27,8 +27,8 @@ export const AccountApi = {
      * @param {String} resource
      * @returns {Promise<Result>}
      */
-    async getAccountResource(address, resource){
-        return await this._exec(`/accounts/${this._0x(address)}/resource/${resource}`)
+    async getAccountResource(address, resource, query = {ledger_version: null}){
+        return await this._exec(`/accounts/${this._0x(address)}/resource/${resource}`, query)
     },
 
     /**
@@ -36,8 +36,8 @@ export const AccountApi = {
      * @param {String} address
      * @returns {Promise<Result>}
      */
-    async getAccountModules(address){
-        return await this._exec(`/accounts/${this._0x(address)}/modules`)
+    async getAccountModules(address, query = {ledger_version: null}){
+        return await this._exec(`/accounts/${this._0x(address)}/modules`, query)
     },
 
     /**
@@ -46,8 +46,8 @@ export const AccountApi = {
      * @param {String} module
      * @returns {Promise<Result>}
      */
-    async getAccountModule(address, module){
-        return await this._exec(`/accounts/${this._0x(address)}/module/${module}`)
+    async getAccountModule(address, module, query = {ledger_version: null}){
+        return await this._exec(`/accounts/${this._0x(address)}/module/${module}`, query)
     },
 
     /**
@@ -84,8 +84,8 @@ export const AccountApi = {
      * @param {String} coinStruct "0xCoinHolderAddress::CoinPrefix::CoinSuffix"
      * @returns {Promise<Result>}
      */
-    async getAccountBalance(address, coinStruct = APTOS_TOKEN){
-        const resource = await this.getAccountResource(address, `0x1::coin::CoinStore<${coinStruct}>`)
+    async getAccountBalance(address, coinStruct = APTOS_TOKEN, query = {ledger_version: null}){
+        const resource = await this.getAccountResource(address, `0x1::coin::CoinStore<${coinStruct}>`, query)
         if (!resource.ok) {
             return new Result(false, "Error getting address balance", resource.error)
         }

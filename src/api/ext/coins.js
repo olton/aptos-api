@@ -1,7 +1,5 @@
 import {Result} from "../../helpers/result.js";
 
-export const APTOS_TOKEN = "0x1::aptos_coin::AptosCoin"
-
 export const CoinApi = {
     /**
      * Create right coin structured name -> 0xCoinHolderAddress::CoinPrefix::CoinSuffix, 0x1::TestCoin::TestCoin

@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 import {Result} from "../helpers/result.js"
-import {APTOS_TOKEN} from "./ext/coins.js";
+import {APTOS_TOKEN} from "../helpers/const.js";
 
 export class Aptos {
     gas = {
@@ -9,7 +9,6 @@ export class Aptos {
         gas_currency_code: "XUS",
     }
     lastRequest = null
-    defaultToken = APTOS_TOKEN
 
     constructor(url = "", gas = {}) {
         this.url = url
@@ -40,7 +39,7 @@ export class Aptos {
             return new Result(false, result.message ? result.message : result.toString(), result)
         }
 
-        return new Result(true, "ok", result)
+        return new Result(true, "ok", typeof result === "string" ? JSON.parse(result) : result)
     }
 
     getLastRequest(){
@@ -51,6 +50,14 @@ export class Aptos {
         return new Promise((resolve) => {
             setTimeout(resolve, timeMs)
         })
+    }
+
+    moveStructTagToParam(moveStructTag){
+        let genericTypeParamsString = ""
+        if (moveStructTag.generic_type_params.length > 0) {
+            genericTypeParamsString = `<${moveStructTag.generic_type_params.join(",")}>`
+        }
+        return `${moveStructTag.address}::${moveStructTag.module}::${moveStructTag.name}${genericTypeParamsString}`
     }
 
     async state(){

@@ -1,10 +1,6 @@
 import {Result} from "../../helpers/result.js";
 import {debug} from "../../helpers/debug.js";
-
-export const TOKEN_STORE = '0x1::Token::TokenStore'
-export const TOKEN_COLLECTIONS = '0x1::Token::Collections'
-export const TOKEN_ID = '0x1::Token::TokenId'
-export const TOKEN_TOKEN = '0x1::Token::Token'
+import {TOKEN_STORE, TOKEN_ID, TOKEN_TOKEN} from "../../helpers/const.js";
 
 export const TokenApi = {
     /**
