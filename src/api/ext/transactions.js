@@ -8,26 +8,8 @@ const {sign} = Nacl
 export const TransactionApi = {
     lastTransaction: null,
 
-    async getTransactions(){
-        let address, query = {start: 0, limit: 25}
-        let args = [...arguments]
-
-        if (args.length === 1 && typeof args[0] === "object") {
-            address = undefined
-            query = args[0]
-        } else
-        if (args.length === 1 && typeof args[0] === "string") {
-            address = args[0]
-        } else {
-            address = args[0]
-            query = args[1]
-        }
-
-        const link = `${address ? '/accounts/'+this._0x(address) : ''}/transactions`
-
-        debug(args)
-
-        return await this._exec(link, query)
+    async getTransactions(query = {limit: 25, start: 0}){
+        return await this._exec(`/transactions`, query)
     },
 
     async getTransaction(hash, by = TRANS_BY_HASH){
