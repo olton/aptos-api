@@ -39,7 +39,7 @@ export class Aptos {
             return new Result(false, result.message ? result.message : result.toString(), result)
         }
 
-        return new Result(true, "ok", typeof result === "string" ? JSON.parse(result) : result)
+        return new Result(true, "ok", typeof result === "string" && link !== '/-/healthy' ? JSON.parse(result) : result)
     }
 
     getLastRequest(){

@@ -1,1 +1,1 @@
-GET https://fullnode.aptos-node.net/v1/-/healthy
+GET https://fullnode.aptos-node.net/-/healthy
