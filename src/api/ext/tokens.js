@@ -15,17 +15,15 @@ export const TokenApi = {
     async createCollection(signer, name, desc, uri, max = 0){
         const payload = {
             type: "script_function_payload",
-            function: `0x1::Token::${max ? 'create_limited_collection_script' : 'create_unlimited_collection_script'}`,
+            function: `0x3::token::create_collection_script`,
             type_arguments: [],
             arguments: [
                 Buffer.from(name).toString("hex"),
                 Buffer.from(desc).toString("hex"),
                 Buffer.from(uri).toString("hex"),
+                Buffer.from(""+max).toString("hex"),
+                [false, false, false]
             ],
-        }
-
-        if (max) {
-            payload.arguments.push(max.toString())
         }
 
         return await this.submitTransaction(signer, payload)
@@ -37,7 +35,7 @@ export const TokenApi = {
      * @returns {Promise<Result|*[]>}
      */
     async getCollections(address){
-        const resource = await this.getEventsByHandle(this._0x(address), "0x1::Token::Collections", "create_collection_events")
+        const resource = await this.getEventsByHandle(this._0x(address), "0x3::token::Collections", "create_collection_events")
         if (!resource.ok) {
             return new Result(false, `No collections found!`, resource.error)
         }
@@ -46,12 +44,14 @@ export const TokenApi = {
         for(let col of resource.payload) {
             collections.push({
                 number: +col.sequence_number,
-                name: col.data.collection_name,
-                desc:  col.data.description,
+                name: Buffer.from(col.data.collection_name, 'hex').toString('utf8'),
+                desc:  Buffer.from(col.data.description, 'hex').toString('utf8'),
                 creator:  col.data.creator,
-                max: +col.data.maximum.vec[0] || 0
+                max: +col.data.maximum || 0
             })
         }
+
+        // console.log(collections)
 
         return collections
     },

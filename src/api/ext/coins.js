@@ -1,4 +1,5 @@
 import {Result} from "../../helpers/result.js";
+import {APTOS_TOKEN} from "../../helpers/const.js";
 
 export const CoinApi = {
     /**
@@ -40,7 +41,7 @@ export const CoinApi = {
     async registerCoin(signer, coinStruct){
         const payload = {
             "type": "script_function_payload",
-            "function": "0x1::Coin::register",
+            "function": "0x1::coin::register",
             "type_arguments": [`${coinStruct}`],
             "arguments": []
         }
@@ -99,7 +100,7 @@ export const CoinApi = {
     async getDepositedCoins(address, coinStruct){
         return await this.getEventsByHandle(
             this._0x(address),
-            `0x1::Coin::CoinStore<${coinStruct}>`,
+            `0x1::coin::CoinStore<${coinStruct}>`,
             "deposit_events"
         )
     },
@@ -107,7 +108,7 @@ export const CoinApi = {
     async getWithdrawCoins(address, coinStruct){
         return await this.getEventsByHandle(
             this._0x(address),
-            `0x1::Coin::CoinStore<${coinStruct}>`,
+            `0x1::coin::CoinStore<${coinStruct}>`,
             "withdraw_events"
         )
     },

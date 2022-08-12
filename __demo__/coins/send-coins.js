@@ -1,9 +1,8 @@
 import {Account, Aptos} from "../../src/index.js";
 import {Alice} from "../helpers/alice.js";
 import {Bob} from "../helpers/bob.js";
-import {NODE_URL} from "../helpers/consts.js";
 import {Faucet} from "../../src/api/faucet.js";
-import {FAUCET_URL} from "../helpers/consts.js";
+import {FAUCET_URL, NODE_URL} from "../../src/helpers/const.js";
 
 const api = new Aptos(NODE_URL)
 const faucet = new Faucet(FAUCET_URL, api)
@@ -14,8 +13,8 @@ console.log(`=== Send coins demo ===`)
 
 console.log(`=== Fund accounts ===`)
 
-await faucet.fundAccount(alice.address(), 1_000_000)
-await faucet.fundAccount(bob.address(), 1_000_000)
+// await faucet.fundAccount(alice.address(), 1_000_000)
+// await faucet.fundAccount(bob.address(), 1_000_000)
 
 console.log(`Alice balance:`, await api.getAccountBalance(alice.address()))
 console.log(`Bob balance:`, await api.getAccountBalance(bob.address()))

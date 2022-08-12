@@ -54,10 +54,12 @@ export const TransactionApi = {
 
     async signTransaction(signer, trx = {}){
         const signedMessage = await this.createSigningMessage(trx)
+
         if (!signedMessage.ok) {
             return new Result(false, signedMessage.message, signedMessage)
         }
-        const toSign = Buffer.from(signedMessage.payload.message.substring(2), "hex")
+
+        const toSign = Buffer.from(signedMessage.payload.substring(2), "hex")
         const signature = sign(toSign, signer.signingKey.secretKey)
         const signatureHex = Buffer.from(signature).toString("hex").slice(0, 128)
 
@@ -92,6 +94,7 @@ export const TransactionApi = {
 
         const signedTransaction = await this.signTransaction(account, transaction.payload)
         if (!signedTransaction.ok) return new Result(false, signedTransaction.message, signedTransaction)
+        console.log(signedTransaction)
 
         const result = await this.submitTransactionData(signedTransaction.payload)
 
