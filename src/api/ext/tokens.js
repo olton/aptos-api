@@ -43,9 +43,13 @@ export const TokenApi = {
 
         for(let col of resource.payload) {
             collections.push({
+                version: col.version,
+                key: col.key,
+                type: col.type,
                 number: +col.sequence_number,
                 name: Buffer.from(col.data.collection_name, 'hex').toString('utf8'),
                 desc:  Buffer.from(col.data.description, 'hex').toString('utf8'),
+                uri:  Buffer.from(col.data.uri, 'hex').toString('utf8'),
                 creator:  col.data.creator,
                 max: +col.data.maximum || 0
             })
