@@ -12,7 +12,7 @@ const api = new Aptos(NODE_URL, {
 // debug(account.toObject())
 
 // await api.createCollection(account, "Collection1", "Unlimited Collection", "https://pimenov.com.ua")
-const col = await api.createCollection(account, "Collection1", "Unlimited Collection", "https://pimenov.com.ua")
+const col = await api.createCollection(account, "Collection3", "Limited Collection", "https://pimenov.com.ua", 10)
 debug(col)
 // console.log(api.lastTransactionStatus())
 // debug(await api.createCollection(account, "Collection2", "Limited Collection", "https://pimenov.com.ua", 10))

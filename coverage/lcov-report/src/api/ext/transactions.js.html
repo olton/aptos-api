@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">6.12% </span>
+                <span class="strong">6% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>3/49</span>
+                <span class='fraction'>3/50</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">6.38% </span>
+                <span class="strong">6.25% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>3/47</span>
+                <span class='fraction'>3/48</span>
             </div>
         
             
@@ -213,7 +213,10 @@
 <a name='L148'></a><a href='#L148'>148</a>
 <a name='L149'></a><a href='#L149'>149</a>
 <a name='L150'></a><a href='#L150'>150</a>
-<a name='L151'></a><a href='#L151'>151</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L151'></a><a href='#L151'>151</a>
+<a name='L152'></a><a href='#L152'>152</a>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -269,28 +272,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -303,8 +300,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -419,10 +425,12 @@ export const TransactionApi = {
 &nbsp;
 <span class="fstat-no" title="function not covered" >    as</span>ync signTransaction(signer, trx = <span class="branch-0 cbranch-no" title="branch not covered" >{})</span>{
         const signedMessage = <span class="cstat-no" title="statement not covered" >await this.createSigningMessage(trx)</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >        if (!signedMessage.ok) {</span>
 <span class="cstat-no" title="statement not covered" >            return new Result(false, signedMessage.message, signedMessage)</span>
         }
-        const toSign = <span class="cstat-no" title="statement not covered" >Buffer.from(signedMessage.payload.message.substring(2), "hex")</span>
+&nbsp;
+        const toSign = <span class="cstat-no" title="statement not covered" >Buffer.from(signedMessage.payload.substring(2), "hex")</span>
         const signature = <span class="cstat-no" title="statement not covered" >sign(toSign, signer.signingKey.secretKey)</span>
         const signatureHex = <span class="cstat-no" title="statement not covered" >Buffer.from(signature).toString("hex").slice(0, 128)</span>
 &nbsp;
@@ -457,6 +465,7 @@ export const TransactionApi = {
 &nbsp;
         const signedTransaction = <span class="cstat-no" title="statement not covered" >await this.signTransaction(account, transaction.payload)</span>
 <span class="cstat-no" title="statement not covered" >        if (!signedTransaction.ok) <span class="cstat-no" title="statement not covered" >return new Result(false, signedTransaction.message, signedTransaction)</span></span>
+<span class="cstat-no" title="statement not covered" >        console.log(signedTransaction)</span>
 &nbsp;
         const result = <span class="cstat-no" title="statement not covered" >await this.submitTransactionData(signedTransaction.payload)</span>
 &nbsp;
@@ -520,7 +529,7 @@ export const TransactionApi = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed Aug 10 2022 20:29:57 GMT+0300 (за східноєвропейським літнім часом)
+                at Fri Aug 12 2022 17:44:21 GMT+0300 (за східноєвропейським літнім часом)
             </div>
         <script src="../../../prettify.js"></script>
         <script>

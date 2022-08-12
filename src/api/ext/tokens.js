@@ -21,7 +21,7 @@ export const TokenApi = {
                 Buffer.from(name).toString("hex"),
                 Buffer.from(desc).toString("hex"),
                 Buffer.from(uri).toString("hex"),
-                Buffer.from(""+max).toString("hex"),
+                ""+max,
                 [false, false, false]
             ],
         }

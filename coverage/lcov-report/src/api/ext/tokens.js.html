@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">3.44% </span>
+                <span class="strong">3.7% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/29</span>
+                <span class='fraction'>1/27</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/19</span>
+                <span class='fraction'>0/15</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">3.44% </span>
+                <span class="strong">3.7% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/29</span>
+                <span class='fraction'>1/27</span>
             </div>
         
             
@@ -250,8 +250,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -271,6 +269,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -402,17 +402,15 @@ export const TokenApi = {
 <span class="fstat-no" title="function not covered" >    as</span>ync createCollection(signer, name, desc, uri, max = <span class="branch-0 cbranch-no" title="branch not covered" >0)</span>{
         const payload = <span class="cstat-no" title="statement not covered" >{</span>
             type: "script_function_payload",
-            function: `0x1::Token::${max ? 'create_limited_collection_script' : 'create_unlimited_collection_script'}`,
+            function: `0x3::token::create_collection_script`,
             type_arguments: [],
             arguments: [
                 Buffer.from(name).toString("hex"),
                 Buffer.from(desc).toString("hex"),
                 Buffer.from(uri).toString("hex"),
+                Buffer.from(""+max).toString("hex"),
+                [false, false, false]
             ],
-        }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >        if (max) {</span>
-<span class="cstat-no" title="statement not covered" >            payload.arguments.push(max.toString())</span>
         }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        return await this.submitTransaction(signer, payload)</span>
@@ -424,7 +422,7 @@ export const TokenApi = {
      * @returns {Promise&lt;Result|*[]&gt;}
      */
 <span class="fstat-no" title="function not covered" >    as</span>ync getCollections(address){
-        const resource = <span class="cstat-no" title="statement not covered" >await this.getEventsByHandle(this._0x(address), "0x1::Token::Collections", "create_collection_events")</span>
+        const resource = <span class="cstat-no" title="statement not covered" >await this.getEventsByHandle(this._0x(address), "0x3::token::Collections", "create_collection_events")</span>
 <span class="cstat-no" title="statement not covered" >        if (!resource.ok) {</span>
 <span class="cstat-no" title="statement not covered" >            return new Result(false, `No collections found!`, resource.error)</span>
         }
@@ -433,12 +431,14 @@ export const TokenApi = {
 <span class="cstat-no" title="statement not covered" >        for(let col of resource.payload) {</span>
 <span class="cstat-no" title="statement not covered" >            collections.push({</span>
                 number: +col.sequence_number,
-                name: col.data.collection_name,
-                desc:  col.data.description,
+                name: Buffer.from(col.data.collection_name, 'hex').toString('utf8'),
+                desc:  Buffer.from(col.data.description, 'hex').toString('utf8'),
                 creator:  col.data.creator,
-                max: +col.data.maximum.vec[0] || 0
+                max: +col.data.maximum || 0
             })
         }
+&nbsp;
+        // console.log(collections)
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        return collections</span>
     },
@@ -553,7 +553,7 @@ export const TokenApi = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed Aug 10 2022 20:29:57 GMT+0300 (за східноєвропейським літнім часом)
+                at Fri Aug 12 2022 17:44:21 GMT+0300 (за східноєвропейським літнім часом)
             </div>
         <script src="../../../prettify.js"></script>
         <script>
