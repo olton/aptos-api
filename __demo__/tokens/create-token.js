@@ -14,12 +14,17 @@ const api = new Aptos(NODE_URL, {
 // Create unlimited collection
 token = await api.createToken(
     account,
-    "Collection1",
-    "Token3",
-    "Token3 Desc",
+    "Collection2",
+    "Token2",
+    "Token2 Desc",
     10,
     "https://pimenov.com.ua",
-    10
+    10,
+    {
+        uri: true,
+        maximum: true,
+        royalty: true
+    }
 )
 debug(token)
 

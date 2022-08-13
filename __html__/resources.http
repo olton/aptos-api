@@ -1,0 +1,8 @@
+# curl --request GET
+#  --url https://fullnode.aptos-node.net/v1/accounts/0x310dfd70948d6b22c5e6a573719e21f0437d4fa4986a106e439a1f9d44dcae0c/resources
+#  --header 'Content-Type: application/json'
+GET https://fullnode.aptos-node.net/v1/accounts/0x310dfd70948d6b22c5e6a573719e21f0437d4fa4986a106e439a1f9d44dcae0c/resources
+Content-Type: application/json
+
+###
+

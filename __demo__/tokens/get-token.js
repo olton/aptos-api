@@ -7,14 +7,16 @@ const api = new Aptos(NODE_URL, {
     max_gas_amount: 2000
 })
 
-// debug(await api.getToken(
+// debug(await api.getTokenBalance(
+//     Alice.address,
 //     Alice.address,
 //     "Collection1",
-//     "Token2",
+//     "Token5",
 // ))
 
 debug(await api.getTokenData(
     Alice.address,
-    "Collection1",
+    Alice.address,
+    "Collection2",
     "Token2",
 ))

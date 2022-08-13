@@ -94,7 +94,6 @@ export const TransactionApi = {
 
         const signedTransaction = await this.signTransaction(account, transaction.payload)
         if (!signedTransaction.ok) return new Result(false, signedTransaction.message, signedTransaction)
-        console.log(signedTransaction)
 
         const result = await this.submitTransactionData(signedTransaction.payload)
 

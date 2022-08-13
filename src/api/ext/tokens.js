@@ -1,5 +1,4 @@
 import {Result} from "../../helpers/result.js";
-import {TOKEN_STORE, TOKEN_ID, TOKEN_TOKEN} from "../../helpers/const.js";
 
 export const TokenApi = {
     /**
@@ -21,7 +20,7 @@ export const TokenApi = {
                 Buffer.from(desc).toString("hex"),
                 Buffer.from(uri).toString("hex"),
                 ""+max,
-                [false, false, false]
+                [false, false, false] // Collection mutations
             ],
         }
 
@@ -60,7 +59,29 @@ export const TokenApi = {
     },
 
 
-    async createToken(signer, collection, name, desc = '', balance = 1, uri = '', max = 1){
+    /**
+     *
+     * @param {Account} signer
+     * @param {String} collection
+     * @param {String} name
+     * @param {String} desc
+     * @param {Number} balance
+     * @param {String} uri
+     * @param {Number} max
+     * @param mutation
+     * @returns {Promise<Result|undefined>}
+     */
+    async createToken(
+        signer,
+        collection,
+        name,
+        desc = '',
+        balance = 1,
+        uri = '',
+        max = 1,
+        mutation = {}
+    ){
+        const {description: mutDesc = false, maximum: mutMax = false, properties: mutProps = false, royalty: mutRoyalty = false, uri: mutUri = false} = mutation
         const payload = {
             type: "script_function_payload",
             function: `0x3::token::create_token_script`,
@@ -72,10 +93,10 @@ export const TokenApi = {
                 balance.toString(), // token balance
                 max.toString(), // token maximum
                 Buffer.from(uri).toString("hex"), // token uri
-                signer.address(), // royalty payee address
+                this._0x(signer.address()), // royalty payee address
                 "0", // royalty payee denominator
                 "0", // royalty payee numerator
-                [false, false, false, false, false], // mutate setting
+                [mutDesc, mutMax, mutProps, mutRoyalty, mutUri], // mutate setting
                 [""], // prop key ???
                 [""], // prop value ???
                 [""], // prop type ???
@@ -85,8 +106,8 @@ export const TokenApi = {
         return await this.submitTransaction(signer, payload)
     },
 
-    async getTokenBalance(creator, collectionName, tokenName, from = '0x3::token::TokenStore'){
-        const store = await this.getAccountResource(creator, from)
+    async getTokenBalance(owner, creator, collectionName, tokenName, from = '0x3::token::TokenStore'){
+        const store = await this.getAccountResource(owner, from)
 
         if (!store.ok) {
             return new Result(false, "Can't obtain token data from TokenStore", store.error)
@@ -94,8 +115,8 @@ export const TokenApi = {
 
         const token_data_id = {
             creator: creator,
-            collection: collectionName,
-            name: tokenName,
+            collection: Buffer.from(collectionName).toString("hex"),
+            name: Buffer.from(tokenName).toString("hex"),
         }
 
         const token_id = {
@@ -105,16 +126,26 @@ export const TokenApi = {
 
         const handle = store.payload.data.tokens.handle
 
-        return await this.getTableItem(
+        const tokenBalance = await this.getTableItem(
             handle,
             '0x3::token::TokenId',
             '0x3::token::Token',
-            token_data_id
+            token_id
         )
+
+        const {id, amount, token_properties} = tokenBalance.payload
+
+        return {
+            creator: id.creator,
+            collection: Buffer.from(id.token_data_id.collection, 'hex').toString('utf8'),
+            name: Buffer.from(id.token_data_id.name, 'hex').toString('utf8'),
+            amount,
+            props: token_properties
+        }
     },
 
-    async getTokenData(creator, collectionName, tokenName, from = '0x3::token::TokenStore'){
-        const store = await this.getAccountResource(creator, from)
+    async getTokenData(owner, creator, collectionName, tokenName, from = '0x3::token::Collections'){
+        const store = await this.getAccountResource(owner, from)
 
         if (!store.ok) {
             return new Result(false, "Can't obtain token data from TokenStore", store.error)
@@ -122,18 +153,30 @@ export const TokenApi = {
 
         const token_data_id = {
             creator: creator,
-            collection: collectionName,
-            name: tokenName,
+            collection: Buffer.from(collectionName).toString("hex"),
+            name: Buffer.from(tokenName).toString("hex"),
         }
 
-        const handle = store.payload.data.tokens.handle
+        const handle = store.payload.data.token_data.handle
 
-        return await this.getTableItem(
+        const tokenData = await this.getTableItem(
             handle,
             '0x3::token::TokenDataId',
             '0x3::token::TokenData',
             token_data_id
         )
+
+        const {default_properties, name, description, largest_property_version, maximum, mutability_config, royalty, supply, uri} = tokenData.payload
+
+        return {
+            name: Buffer.from(name, 'hex').toString("utf8"),
+            desc: Buffer.from(description, 'hex').toString("utf8"),
+            supply,
+            maximum,
+            royalty,
+            default_props: default_properties,
+            mutability_config,
+        }
     },
 
     async tokenCreateOffer(signer, receiver, creator,  collectionName, tokenName, amount){
