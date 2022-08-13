@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1660317184755" clover="3.2.0">
-  <project timestamp="1660317184755" name="All files">
-    <metrics statements="276" coveredstatements="122" conditionals="135" coveredconditionals="49" methods="94" coveredmethods="30" elements="505" coveredelements="201" complexity="0" loc="276" ncloc="276" packages="5" files="17" classes="17"/>
+<coverage generated="1660386685714" clover="3.2.0">
+  <project timestamp="1660386685714" name="All files">
+    <metrics statements="273" coveredstatements="122" conditionals="134" coveredconditionals="49" methods="94" coveredmethods="30" elements="501" coveredelements="201" complexity="0" loc="273" ncloc="273" packages="5" files="17" classes="17"/>
     <package name="src">
       <metrics statements="13" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="index.js" path="D:\Projects\Aptos\Api\src\index.js">
@@ -118,7 +118,7 @@
       </file>
     </package>
     <package name="src.api.ext">
-      <metrics statements="150" coveredstatements="30" conditionals="74" coveredconditionals="10" methods="54" coveredmethods="10"/>
+      <metrics statements="147" coveredstatements="30" conditionals="73" coveredconditionals="10" methods="54" coveredmethods="10"/>
       <file name="account.js" path="D:\Projects\Aptos\Api\src\api\ext\account.js">
         <metrics statements="20" coveredstatements="7" conditionals="13" coveredconditionals="5" methods="10" coveredmethods="4"/>
         <line num="5" count="8" type="stmt"/>
@@ -216,34 +216,31 @@
         <line num="3" count="0" type="stmt"/>
       </file>
       <file name="tokens.js" path="D:\Projects\Aptos\Api\src\api\ext\tokens.js">
-        <metrics statements="27" coveredstatements="1" conditionals="15" coveredconditionals="0" methods="9" coveredmethods="0"/>
-        <line num="5" count="8" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="29" count="0" type="stmt"/>
-        <line num="38" count="0" type="stmt"/>
-        <line num="39" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="40" count="0" type="stmt"/>
-        <line num="42" count="0" type="stmt"/>
+        <metrics statements="24" coveredstatements="1" conditionals="14" coveredconditionals="0" methods="9" coveredmethods="0"/>
+        <line num="4" count="8" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="37" count="0" type="stmt"/>
+        <line num="38" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="39" count="0" type="stmt"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="43" count="0" type="stmt"/>
         <line num="44" count="0" type="stmt"/>
-        <line num="45" count="0" type="stmt"/>
-        <line num="56" count="0" type="stmt"/>
-        <line num="71" count="0" type="stmt"/>
-        <line num="84" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="64" count="0" type="stmt"/>
         <line num="85" count="0" type="stmt"/>
-        <line num="88" count="0" type="stmt"/>
-        <line num="90" count="0" type="stmt"/>
-        <line num="94" count="0" type="stmt"/>
-        <line num="95" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="96" count="0" type="stmt"/>
-        <line num="98" count="0" type="stmt"/>
-        <line num="103" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="104" count="0" type="stmt"/>
-        <line num="113" count="0" type="stmt"/>
-        <line num="126" count="0" type="stmt"/>
-        <line num="130" count="0" type="stmt"/>
-        <line num="142" count="0" type="stmt"/>
-        <line num="146" count="0" type="stmt"/>
-        <line num="157" count="0" type="stmt"/>
+        <line num="89" count="0" type="stmt"/>
+        <line num="90" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="91" count="0" type="stmt"/>
+        <line num="93" count="0" type="stmt"/>
+        <line num="98" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="99" count="0" type="stmt"/>
+        <line num="108" count="0" type="stmt"/>
+        <line num="121" count="0" type="stmt"/>
+        <line num="125" count="0" type="stmt"/>
+        <line num="137" count="0" type="stmt"/>
+        <line num="141" count="0" type="stmt"/>
+        <line num="152" count="0" type="stmt"/>
       </file>
       <file name="transactions.js" path="D:\Projects\Aptos\Api\src\api\ext\transactions.js">
         <metrics statements="48" coveredstatements="3" conditionals="20" coveredconditionals="1" methods="14" coveredmethods="1"/>

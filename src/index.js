@@ -13,6 +13,7 @@ import {Gas} from "./api/ext/gas.js"
 import {APTOS_TOKEN, TOKEN_STORE, TOKEN_COLLECTIONS,
     TRANS_BY_HASH, NODE_URL, FAUCET_URL, TOKEN_TOKEN,
     NODE_URL_OLD, TOKEN_ID, TRANS_BY_VERSION} from "./helpers/const.js";
+import {Result, TransResult} from "./helpers/result.js";
 
 Aptos.use(NodeApi, AccountApi, TransactionApi, EventApi, TableApi, ModuleApi, CoinApi, TokenApi, Gas)
 
@@ -28,6 +29,8 @@ Aptos.TRANS_BY_VERSION = TRANS_BY_VERSION
 Aptos.NODE_URL = NODE_URL
 Aptos.NODE_URL_OLD = NODE_URL_OLD
 Aptos.FAUCET_URL = FAUCET_URL
+Aptos.Result = Result
+Aptos.TransResult = TransResult
 
 export {
     hexstr,

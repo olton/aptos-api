@@ -85,22 +85,33 @@ export const TokenApi = {
         return await this.submitTransaction(signer, payload)
     },
 
-    async getToken(creator, collectionName, tokenName, from = TOKEN_STORE){
+    async getToken(creator, collectionName, tokenName, from = '0x3::token::TokenStore'){
         const store = await this.getAccountResource(creator, from)
+
         if (!store.ok) {
             return new Result(false, "Can't obtain token data from TokenStore", store.error)
         }
-        const token_id = {
+
+        const token_data_id = {
             creator: creator,
             collection: collectionName,
             name: tokenName,
         }
-        const handle = store["payload"]["data"][from === TOKEN_STORE ? "tokens" : "token_data"]["handle"]
+
+        const token_id = {
+            token_data_id,
+            property_version: "0",
+        }
+
+        const handle = store.payload.data.tokens.handle
+
         return await this.getTableItem(
             handle,
-            TOKEN_ID,
-            TOKEN_TOKEN,
-            token_id,
+            {
+                key_type: '0x3::token::TokenId',
+                value_type: '0x3::token::Token',
+                key: token_id
+            }
         )
     },
 

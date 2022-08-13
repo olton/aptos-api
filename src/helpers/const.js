@@ -1,9 +1,9 @@
 export const APTOS_TOKEN = "0x1::aptos_coin::AptosCoin"
 
-export const TOKEN_STORE = '0x1::Token::TokenStore'
-export const TOKEN_COLLECTIONS = '0x1::Token::Collections'
-export const TOKEN_ID = '0x1::Token::TokenId'
-export const TOKEN_TOKEN = '0x1::Token::Token'
+export const TOKEN_STORE = '0x3::token::TokenStore'
+export const TOKEN_COLLECTIONS = '0x3::token::Collections'
+export const TOKEN_ID = '0x3::token::TokenId'
+export const TOKEN_TOKEN = '0x3::token::Token'
 
 export const NODE_URL_OLD = 'https://fullnode.devnet.aptoslabs.com';
 export const NODE_URL = 'https://fullnode.devnet.aptoslabs.com/v1';
