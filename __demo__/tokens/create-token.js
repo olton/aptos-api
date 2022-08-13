@@ -4,7 +4,7 @@ import {debug} from "../../src/helpers/debug.js";
 import {Alice} from "../helpers/alice.js";
 import {NODE_URL} from "../../src/helpers/const.js";
 
-let collection
+let token
 
 const account = new Account(Alice.privateKey)
 const api = new Aptos(NODE_URL, {
@@ -12,12 +12,15 @@ const api = new Aptos(NODE_URL, {
 })
 
 // Create unlimited collection
-collection = await api.createCollection(
+token = await api.createToken(
     account,
-    "Collection4",
-    "UnLimited Collection",
-    "https://pimenov.com.ua"
+    "Collection1",
+    "Token1",
+    "Token1 Desc",
+    10,
+    "https://pimenov.com.ua",
+    10
 )
-debug(collection)
+debug(token)
 
 

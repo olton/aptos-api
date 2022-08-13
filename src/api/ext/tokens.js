@@ -1,5 +1,4 @@
 import {Result} from "../../helpers/result.js";
-import {debug} from "../../helpers/debug.js";
 import {TOKEN_STORE, TOKEN_ID, TOKEN_TOKEN} from "../../helpers/const.js";
 
 export const TokenApi = {
@@ -60,36 +59,28 @@ export const TokenApi = {
         return collections
     },
 
-    /**
-     *
-     * @param signer
-     * @param collection
-     * @param name
-     * @param desc
-     * @param supply
-     * @param uri
-     * @param {Number} max, if value greater than zero method will create limited toke
-     * @returns {Promise<Result|undefined>}
-     */
-    async createToken(signer, collection, name, desc, supply, uri, max = 0){
+
+    async createToken(signer, collection, name, desc = '', balance = 1, uri = '', max = 1){
         const payload = {
             type: "script_function_payload",
-            function: `0x1::Token::${max ? 'create_limited_token_script' : 'create_unlimited_token_script'}`,
+            function: `0x3::token::create_token_script`,
             type_arguments: [],
             arguments: [
-                Buffer.from(collection).toString("hex"),
-                Buffer.from(name).toString("hex"),
-                Buffer.from(desc).toString("hex"),
-                true,
-                supply.toString(),
+                Buffer.from(collection).toString("hex"), // collection
+                Buffer.from(name).toString("hex"), // token name
+                Buffer.from(desc).toString("hex"), // token desc
+                balance.toString(), // token balance
+                max.toString(), // token maximum
+                Buffer.from(uri).toString("hex"), // token uri
+                signer.address(), // royalty payee address
+                "0", // royalty payee denominator
+                "0", // royalty payee numerator
+                [false, false, false, false, false], // mutate setting
+                [""], // prop key ???
+                [""], // prop value ???
+                [""], // prop type ???
             ],
         }
-
-        if (max) {
-            payload.arguments.push(max.toString())
-        }
-
-        payload.arguments.push(Buffer.from(uri).toString("hex"))
 
         return await this.submitTransaction(signer, payload)
     },
@@ -116,7 +107,7 @@ export const TokenApi = {
     async tokenCreateOffer(signer, receiver, creator,  collectionName, tokenName, amount){
         const payload = {
             type: "script_function_payload",
-            function: "0x1::TokenTransfers::offer_script",
+            function: "0x3::token_transfers::offer_script",
             type_arguments: [],
             arguments: [
                 receiver,
@@ -133,7 +124,7 @@ export const TokenApi = {
     async tokenClaimOffer(signer, claimer, creator, collectionName, tokenName){
         const payload = {
             type: "script_function_payload",
-            function: "0x1::TokenTransfers::claim_script",
+            function: "0x3::token_transfers::claim_script",
             type_arguments: [],
             arguments: [
                 claimer,
@@ -149,7 +140,7 @@ export const TokenApi = {
     async tokenCancelOffer(signer, receiver, creator, tokenCreationNum){
         const payload = {
             type: "script_function_payload",
-            function: "0x1::TokenTransfers::cancel_offer_script",
+            function: "0x3::token_transfers::cancel_offer_script",
             type_arguments: [],
             arguments: [
                 receiver,
