@@ -11,21 +11,21 @@ export const TokenApi = {
      * @param {Number} max, if value greater than zero method will create limited collection
      * @returns {Promise<Result|undefined>}
      */
-    async createCollection(signer, name, desc, uri, max = 0){
+    async createCollection(signer, name, desc, uri, max = 1){
+        if (max <= 0) return new Result(false, 'The maximum value must be greater than zero!')
+
         const payload = {
             type: "script_function_payload",
             function: `0x3::token::create_collection_script`,
             type_arguments: [],
             arguments: [
-                str2hex(name),
-                str2hex(desc),
-                str2hex(uri),
+                name,
+                desc,
+                uri,
                 ""+max,
                 [false, false, false] // Collection mutations
             ],
         }
-
-        console.log(payload)
 
         return await this.submitTransaction(signer, payload)
     },
@@ -48,9 +48,9 @@ export const TokenApi = {
                 key: col.key,
                 type: col.type,
                 number: +col.sequence_number,
-                name: hex2str(col.data.collection_name),
-                desc:  hex2str(col.data.description),
-                uri:  hex2str(col.data.uri),
+                name: col.data.collection_name,
+                desc: col.data.description,
+                uri: col.data.uri,
                 creator:  col.data.creator,
                 max: +col.data.maximum || 0
             })
@@ -90,12 +90,12 @@ export const TokenApi = {
             function: `0x3::token::create_token_script`,
             type_arguments: [],
             arguments: [
-                str2hex(collection), // collection
-                str2hex(name), // token name
-                str2hex(desc), // token desc
+                collection, // collection
+                name, // token name
+                desc, // token desc
                 balance.toString(), // token balance
                 max.toString(), // token maximum
-                str2hex(uri), // token uri
+                uri, // token uri
                 this._0x(signer.address()), // royalty payee address
                 "0", // royalty payee denominator
                 "0", // royalty payee numerator
@@ -118,8 +118,8 @@ export const TokenApi = {
 
         const token_data_id = {
             creator: creator,
-            collection: str2hex(collectionName),
-            name: str2hex(tokenName),
+            collection: collectionName,
+            name: tokenName,
         }
 
         const token_id = {
@@ -144,8 +144,8 @@ export const TokenApi = {
 
         return new Result(true, "OK", {
             creator: id.token_data_id.creator,
-            collection: hex2str(id.token_data_id.collection),
-            name: hex2str(id.token_data_id.name),
+            collection: id.token_data_id.collection,
+            name: id.token_data_id.name,
             amount,
             props: token_properties
         })
@@ -160,8 +160,8 @@ export const TokenApi = {
 
         const token_data_id = {
             creator: creator,
-            collection: str2hex(collectionName),
-            name: str2hex(tokenName),
+            collection: collectionName,
+            name: tokenName,
         }
 
         const handle = store.payload.data.token_data.handle
@@ -182,8 +182,8 @@ export const TokenApi = {
         const {default_properties, name, description, largest_property_version, maximum, mutability_config, royalty, supply, uri} = tokenData.payload
 
         return new Result(true, "OK", {
-            name: hex2str(name),
-            desc: hex2str(description,),
+            name: name,
+            desc: description,
             supply,
             maximum,
             royalty,
@@ -200,8 +200,8 @@ export const TokenApi = {
             arguments: [
                 receiver,
                 creator,
-                str2hex(collectionName),
-                str2hex(tokenName),
+                collectionName,
+                tokenName,
                 ""+0,
                 amount.toString(),
             ],
@@ -218,8 +218,8 @@ export const TokenApi = {
             arguments: [
                 claimer,
                 creator,
-                str2hex(collectionName),
-                str2hex(tokenName),
+                collectionName,
+                tokenName,
                 ""+0
             ],
         }

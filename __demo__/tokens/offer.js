@@ -15,13 +15,13 @@ const offer = await api.tokenCreateOffer(
     alice,
     bob.address(),
     alice.address(),
-    "Collection2",
-    "Token2",
+    "Collection 2",
+    "Token2.1",
     1)
 debug(offer.payload)
 
 const claimOffer = await api.tokenClaimOffer(
-    bob, alice.address(), alice.address(), "Collection2", "Token2"
+    bob, alice.address(), alice.address(), "Collection 2", "Token2.1"
 )
 debug(claimOffer.payload)
 

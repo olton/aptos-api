@@ -1,6 +1,7 @@
 import {Aptos} from "../../src/index.js";
 import {debug} from "../../src/helpers/debug.js";
 import {Alice} from "../helpers/alice.js";
+import {Bob} from "../helpers/bob.js"
 import {NODE_URL} from "../../src/helpers/const.js";
 
 const api = new Aptos(NODE_URL, {
@@ -10,13 +11,13 @@ const api = new Aptos(NODE_URL, {
 debug(await api.getTokenBalance(
     Alice.address,
     Alice.address,
-    "Collection2",
-    "Token2",
+    "Collection 2",
+    "Token2.1",
 ))
 
 debug(await api.getTokenData(
     Alice.address,
     Alice.address,
-    "Collection2",
-    "Token2",
+    "Collection 2",
+    "Token2.1",
 ))

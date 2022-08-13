@@ -14,10 +14,22 @@ const api = new Aptos(NODE_URL, {
 // Create unlimited collection
 collection = await api.createCollection(
     account,
-    "Collection6",
+    "Collection 4",
     "UnLimited Collection",
-    "https://pimenov.com.ua"
+    "https://pimenov.com.ua",
+    0
 )
 debug(collection)
+
+// Create limited collection
+// collection = await api.createCollection(
+//     account,
+//     "Collection 2",
+//     "Limited Collection",
+//     "https://pimenov.com.ua",
+//     1
+// )
+// debug(collection)
+
 
 
