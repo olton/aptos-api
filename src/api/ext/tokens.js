@@ -136,7 +136,7 @@ export const TokenApi = {
         const {id, amount, token_properties} = tokenBalance.payload
 
         return {
-            creator: id.creator,
+            creator: id.token_data_id.creator,
             collection: Buffer.from(id.token_data_id.collection, 'hex').toString('utf8'),
             name: Buffer.from(id.token_data_id.name, 'hex').toString('utf8'),
             amount,
