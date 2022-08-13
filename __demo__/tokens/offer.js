@@ -11,14 +11,14 @@ const api = new Aptos(NODE_URL, {
 const alice = new Account(Alice.privateKey)
 const bob = new Account(Bob.privateKey)
 
-// const offer = await api.tokenCreateOffer(
-//     alice,
-//     bob.address(),
-//     alice.address(),
-//     "Collection2",
-//     "Token2",
-//     1)
-// debug(offer.payload)
+const offer = await api.tokenCreateOffer(
+    alice,
+    bob.address(),
+    alice.address(),
+    "Collection2",
+    "Token2",
+    1)
+debug(offer.payload)
 
 const claimOffer = await api.tokenClaimOffer(
     bob, alice.address(), alice.address(), "Collection2", "Token2"
