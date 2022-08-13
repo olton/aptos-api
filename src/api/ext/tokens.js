@@ -66,7 +66,7 @@ export const TokenApi = {
 
         // console.log(collections)
 
-        return collections
+        return new Result(true, "OK", collections)
     },
 
 
