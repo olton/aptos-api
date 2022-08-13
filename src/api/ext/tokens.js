@@ -69,6 +69,36 @@ export const TokenApi = {
         return new Result(true, "OK", collections)
     },
 
+    async getCollection(address, name){
+        required(address, 'address', this.getCollections.name)
+        required(name, 'name', this.getCollections.name)
+
+        const resource = await this.getCollections(address)
+
+        if (!resource.ok) {
+            return new Result(false, `No collections found!`, resource.error)
+        }
+
+        for(let col of resource.payload) {
+            if (name === col.name) {
+                const {version, key, type, number, name, desc, uri, creator, max} = col
+                return new Result(true, "OK", {
+                    version,
+                    key,
+                    type,
+                    number,
+                    name,
+                    desc,
+                    uri,
+                    creator,
+                    max
+                })
+            }
+        }
+
+        return new Result(false, `Collection ${name} not found!`, {})
+    },
+
 
     /**
      *
