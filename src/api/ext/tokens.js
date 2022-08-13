@@ -17,10 +17,9 @@ export const TokenApi = {
             function: `0x3::token::create_collection_script`,
             type_arguments: [],
             arguments: [
-                name, desc, uri,
-                // str2hex(name),
-                // str2hex(desc),
-                // str2hex(uri),
+                str2hex(name),
+                str2hex(desc),
+                str2hex(uri),
                 ""+max,
                 [false, false, false] // Collection mutations
             ],
