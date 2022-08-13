@@ -20,12 +20,9 @@ const bob = new Account(Bob.privateKey)
 //     1)
 // debug(offer.payload)
 
-// const claimOffer = await api.tokenClaimOffer(
-//     bob, bob.address(), alice.address(), "Collection2", "Token2"
-// )
-// debug(claimOffer.payload)
-
-const cancelOffer = await api.tokenCancelOffer(
-    alice, bob.address(), alice.address(), "Collection2", "Token2"
+const claimOffer = await api.tokenClaimOffer(
+    bob, alice.address(), alice.address(), "Collection2", "Token2"
 )
 debug(claimOffer.payload)
+
+
