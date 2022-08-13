@@ -1,4 +1,5 @@
 import {Result} from "../../helpers/result.js";
+import {hex2str, str2hex} from "../../helpers/hex-string.js";
 
 export const TokenApi = {
     /**
@@ -16,13 +17,16 @@ export const TokenApi = {
             function: `0x3::token::create_collection_script`,
             type_arguments: [],
             arguments: [
-                Buffer.from(name).toString("hex"),
-                Buffer.from(desc).toString("hex"),
-                Buffer.from(uri).toString("hex"),
+                name, desc, uri,
+                // str2hex(name),
+                // str2hex(desc),
+                // str2hex(uri),
                 ""+max,
                 [false, false, false] // Collection mutations
             ],
         }
+
+        console.log(payload)
 
         return await this.submitTransaction(signer, payload)
     },
@@ -45,9 +49,9 @@ export const TokenApi = {
                 key: col.key,
                 type: col.type,
                 number: +col.sequence_number,
-                name: Buffer.from(col.data.collection_name, 'hex').toString('utf8'),
-                desc:  Buffer.from(col.data.description, 'hex').toString('utf8'),
-                uri:  Buffer.from(col.data.uri, 'hex').toString('utf8'),
+                name: hex2str(col.data.collection_name),
+                desc:  hex2str(col.data.description),
+                uri:  hex2str(col.data.uri),
                 creator:  col.data.creator,
                 max: +col.data.maximum || 0
             })
@@ -87,12 +91,12 @@ export const TokenApi = {
             function: `0x3::token::create_token_script`,
             type_arguments: [],
             arguments: [
-                Buffer.from(collection).toString("hex"), // collection
-                Buffer.from(name).toString("hex"), // token name
-                Buffer.from(desc).toString("hex"), // token desc
+                str2hex(collection), // collection
+                str2hex(name), // token name
+                str2hex(desc), // token desc
                 balance.toString(), // token balance
                 max.toString(), // token maximum
-                Buffer.from(uri).toString("hex"), // token uri
+                str2hex(uri), // token uri
                 this._0x(signer.address()), // royalty payee address
                 "0", // royalty payee denominator
                 "0", // royalty payee numerator
@@ -115,8 +119,8 @@ export const TokenApi = {
 
         const token_data_id = {
             creator: creator,
-            collection: Buffer.from(collectionName).toString("hex"),
-            name: Buffer.from(tokenName).toString("hex"),
+            collection: str2hex(collectionName),
+            name: str2hex(tokenName),
         }
 
         const token_id = {
@@ -141,8 +145,8 @@ export const TokenApi = {
 
         return new Result(true, "OK", {
             creator: id.token_data_id.creator,
-            collection: Buffer.from(id.token_data_id.collection, 'hex').toString('utf8'),
-            name: Buffer.from(id.token_data_id.name, 'hex').toString('utf8'),
+            collection: hex2str(id.token_data_id.collection),
+            name: hex2str(id.token_data_id.name),
             amount,
             props: token_properties
         })
@@ -157,8 +161,8 @@ export const TokenApi = {
 
         const token_data_id = {
             creator: creator,
-            collection: Buffer.from(collectionName).toString("hex"),
-            name: Buffer.from(tokenName).toString("hex"),
+            collection: str2hex(collectionName),
+            name: str2hex(tokenName),
         }
 
         const handle = store.payload.data.token_data.handle
@@ -179,8 +183,8 @@ export const TokenApi = {
         const {default_properties, name, description, largest_property_version, maximum, mutability_config, royalty, supply, uri} = tokenData.payload
 
         return new Result(true, "OK", {
-            name: Buffer.from(name, 'hex').toString("utf8"),
-            desc: Buffer.from(description, 'hex').toString("utf8"),
+            name: hex2str(name),
+            desc: hex2str(description,),
             supply,
             maximum,
             royalty,
@@ -197,8 +201,9 @@ export const TokenApi = {
             arguments: [
                 receiver,
                 creator,
-                Buffer.from(collectionName).toString("hex"),
-                Buffer.from(tokenName).toString("hex"),
+                str2hex(collectionName),
+                str2hex(tokenName),
+                ""+0,
                 amount.toString(),
             ],
         }
@@ -214,8 +219,9 @@ export const TokenApi = {
             arguments: [
                 claimer,
                 creator,
-                Buffer.from(collectionName).toString("hex"),
-                Buffer.from(tokenName).toString("hex"),
+                str2hex(collectionName),
+                str2hex(tokenName),
+                ""+0
             ],
         }
 

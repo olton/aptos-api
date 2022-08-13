@@ -37,3 +37,6 @@ HexString.fromUnit8Array = arr => new HexString.fromBuffer(Buffer.from(arr))
 HexString.toHex = s => new HexString(s).toString()
 
 export const hexstr = s => new HexString(s)
+
+export const str2hex = s => Buffer.from(s).toString("hex")
+export const hex2str = s => Buffer.from(s, 'hex').toString("utf8")

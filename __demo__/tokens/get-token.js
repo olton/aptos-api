@@ -10,8 +10,8 @@ const api = new Aptos(NODE_URL, {
 debug(await api.getTokenBalance(
     Alice.address,
     Alice.address,
-    "Collection1",
-    "Token5",
+    "Collection2",
+    "Token2",
 ))
 
 debug(await api.getTokenData(

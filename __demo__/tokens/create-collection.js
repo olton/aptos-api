@@ -14,7 +14,7 @@ const api = new Aptos(NODE_URL, {
 // Create unlimited collection
 collection = await api.createCollection(
     account,
-    "Collection5",
+    "Collection6",
     "UnLimited Collection",
     "https://pimenov.com.ua"
 )

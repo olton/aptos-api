@@ -12,10 +12,10 @@ const api = new Aptos(NODE_URL)
 const faucet = new Faucet(FAUCET_URL, api)
 let balance, fund
 
-fund = await faucet.fundAccount(alice.address(), 1000000)
-debug(fund)
-fund = await faucet.fundAccount(bob.address(), 1000000)
-debug(fund)
+// fund = await faucet.fundAccount(alice.address(), 1000000)
+// debug(fund)
+// fund = await faucet.fundAccount(bob.address(), 1000000)
+// debug(fund)
 
 balance = await api.getAccountBalance(alice.address())
 debug(balance)
