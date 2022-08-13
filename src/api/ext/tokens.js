@@ -133,15 +133,19 @@ export const TokenApi = {
             token_id
         )
 
+        if (!tokenBalance.ok) {
+            return new Result(false, tokenBalance.message)
+        }
+
         const {id, amount, token_properties} = tokenBalance.payload
 
-        return {
+        return new Result(true, "OK", {
             creator: id.token_data_id.creator,
             collection: Buffer.from(id.token_data_id.collection, 'hex').toString('utf8'),
             name: Buffer.from(id.token_data_id.name, 'hex').toString('utf8'),
             amount,
             props: token_properties
-        }
+        })
     },
 
     async getTokenData(owner, creator, collectionName, tokenName, from = '0x3::token::Collections'){
@@ -159,6 +163,8 @@ export const TokenApi = {
 
         const handle = store.payload.data.token_data.handle
 
+        if (!handle) return new Result(false, `Bad handle ${handle}!`)
+
         const tokenData = await this.getTableItem(
             handle,
             '0x3::token::TokenDataId',
@@ -166,9 +172,13 @@ export const TokenApi = {
             token_data_id
         )
 
+        if (!tokenData.ok) {
+            return new Result(false, tokenData.message)
+        }
+
         const {default_properties, name, description, largest_property_version, maximum, mutability_config, royalty, supply, uri} = tokenData.payload
 
-        return {
+        return new Result(true, "OK", {
             name: Buffer.from(name, 'hex').toString("utf8"),
             desc: Buffer.from(description, 'hex').toString("utf8"),
             supply,
@@ -176,7 +186,7 @@ export const TokenApi = {
             royalty,
             default_props: default_properties,
             mutability_config,
-        }
+        })
     },
 
     async tokenCreateOffer(signer, receiver, creator,  collectionName, tokenName, amount){

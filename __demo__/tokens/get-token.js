@@ -14,9 +14,9 @@ debug(await api.getTokenBalance(
     "Token5",
 ))
 
-// debug(await api.getTokenData(
-//     Alice.address,
-//     Alice.address,
-//     "Collection2",
-//     "Token2",
-// ))
+debug(await api.getTokenData(
+    Alice.address,
+    Alice.address,
+    "Collection2",
+    "Token2",
+))
