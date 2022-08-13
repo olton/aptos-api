@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1660386685714" clover="3.2.0">
-  <project timestamp="1660386685714" name="All files">
-    <metrics statements="273" coveredstatements="122" conditionals="134" coveredconditionals="49" methods="94" coveredmethods="30" elements="501" coveredelements="201" complexity="0" loc="273" ncloc="273" packages="5" files="17" classes="17"/>
+<coverage generated="1660389252405" clover="3.2.0">
+  <project timestamp="1660389252405" name="All files">
+    <metrics statements="284" coveredstatements="124" conditionals="133" coveredconditionals="49" methods="95" coveredmethods="30" elements="512" coveredelements="203" complexity="0" loc="284" ncloc="284" packages="5" files="17" classes="17"/>
     <package name="src">
-      <metrics statements="13" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="15" coveredstatements="15" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="index.js" path="D:\Projects\Aptos\Api\src\index.js">
-        <metrics statements="13" coveredstatements="13" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="17" count="8" type="stmt"/>
-        <line num="19" count="8" type="stmt"/>
+        <metrics statements="15" coveredstatements="15" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="18" count="8" type="stmt"/>
         <line num="20" count="8" type="stmt"/>
         <line num="21" count="8" type="stmt"/>
         <line num="22" count="8" type="stmt"/>
@@ -19,6 +18,9 @@
         <line num="28" count="8" type="stmt"/>
         <line num="29" count="8" type="stmt"/>
         <line num="30" count="8" type="stmt"/>
+        <line num="31" count="8" type="stmt"/>
+        <line num="32" count="8" type="stmt"/>
+        <line num="33" count="8" type="stmt"/>
       </file>
     </package>
     <package name="src.account">
@@ -118,7 +120,7 @@
       </file>
     </package>
     <package name="src.api.ext">
-      <metrics statements="147" coveredstatements="30" conditionals="73" coveredconditionals="10" methods="54" coveredmethods="10"/>
+      <metrics statements="148" coveredstatements="30" conditionals="72" coveredconditionals="10" methods="54" coveredmethods="10"/>
       <file name="account.js" path="D:\Projects\Aptos\Api\src\api\ext\account.js">
         <metrics statements="20" coveredstatements="7" conditionals="13" coveredconditionals="5" methods="10" coveredmethods="4"/>
         <line num="5" count="8" type="stmt"/>
@@ -211,12 +213,12 @@
         <line num="41" count="1" type="stmt"/>
       </file>
       <file name="table.js" path="D:\Projects\Aptos\Api\src\api\ext\table.js">
-        <metrics statements="2" coveredstatements="1" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <metrics statements="2" coveredstatements="1" conditionals="3" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="8" type="stmt"/>
         <line num="3" count="0" type="stmt"/>
       </file>
       <file name="tokens.js" path="D:\Projects\Aptos\Api\src\api\ext\tokens.js">
-        <metrics statements="24" coveredstatements="1" conditionals="14" coveredconditionals="0" methods="9" coveredmethods="0"/>
+        <metrics statements="25" coveredstatements="1" conditionals="12" coveredconditionals="0" methods="9" coveredmethods="0"/>
         <line num="4" count="8" type="stmt"/>
         <line num="15" count="0" type="stmt"/>
         <line num="28" count="0" type="stmt"/>
@@ -230,17 +232,18 @@
         <line num="64" count="0" type="stmt"/>
         <line num="85" count="0" type="stmt"/>
         <line num="89" count="0" type="stmt"/>
-        <line num="90" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="91" count="0" type="stmt"/>
-        <line num="93" count="0" type="stmt"/>
-        <line num="98" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="99" count="0" type="stmt"/>
+        <line num="91" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="92" count="0" type="stmt"/>
+        <line num="95" count="0" type="stmt"/>
+        <line num="101" count="0" type="stmt"/>
+        <line num="106" count="0" type="stmt"/>
         <line num="108" count="0" type="stmt"/>
-        <line num="121" count="0" type="stmt"/>
-        <line num="125" count="0" type="stmt"/>
-        <line num="137" count="0" type="stmt"/>
-        <line num="141" count="0" type="stmt"/>
+        <line num="119" count="0" type="stmt"/>
+        <line num="132" count="0" type="stmt"/>
+        <line num="136" count="0" type="stmt"/>
+        <line num="148" count="0" type="stmt"/>
         <line num="152" count="0" type="stmt"/>
+        <line num="163" count="0" type="stmt"/>
       </file>
       <file name="transactions.js" path="D:\Projects\Aptos\Api\src\api\ext\transactions.js">
         <metrics statements="48" coveredstatements="3" conditionals="20" coveredconditionals="1" methods="14" coveredmethods="1"/>
@@ -295,7 +298,7 @@
       </file>
     </package>
     <package name="src.helpers">
-      <metrics statements="32" coveredstatements="28" conditionals="12" coveredconditionals="6" methods="12" coveredmethods="6"/>
+      <metrics statements="40" coveredstatements="28" conditionals="12" coveredconditionals="6" methods="13" coveredmethods="6"/>
       <file name="const.js" path="D:\Projects\Aptos\Api\src\helpers\const.js">
         <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="8" type="stmt"/>
@@ -331,7 +334,7 @@
         <line num="39" count="12" type="stmt"/>
       </file>
       <file name="result.js" path="D:\Projects\Aptos\Api\src\helpers\result.js">
-        <metrics statements="7" coveredstatements="6" conditionals="4" coveredconditionals="3" methods="1" coveredmethods="1"/>
+        <metrics statements="15" coveredstatements="6" conditionals="4" coveredconditionals="3" methods="2" coveredmethods="1"/>
         <line num="3" count="18" type="stmt"/>
         <line num="4" count="18" type="cond" truecount="2" falsecount="0"/>
         <line num="5" count="1" type="stmt"/>
@@ -339,6 +342,14 @@
         <line num="8" count="17" type="cond" truecount="1" falsecount="1"/>
         <line num="9" count="0" type="stmt"/>
         <line num="11" count="17" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
       </file>
     </package>
   </project>
