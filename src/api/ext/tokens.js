@@ -85,7 +85,7 @@ export const TokenApi = {
         return await this.submitTransaction(signer, payload)
     },
 
-    async getToken(creator, collectionName, tokenName, from = '0x3::token::TokenStore'){
+    async getTokenBalance(creator, collectionName, tokenName, from = '0x3::token::TokenStore'){
         const store = await this.getAccountResource(creator, from)
 
         if (!store.ok) {
@@ -107,8 +107,8 @@ export const TokenApi = {
 
         return await this.getTableItem(
             handle,
-            '0x3::token::TokenDataId',
-            '0x3::token::TokenData',
+            '0x3::token::TokenId',
+            '0x3::token::Token',
             token_data_id
         )
     },
