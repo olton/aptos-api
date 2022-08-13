@@ -2,11 +2,12 @@ import {Account} from "../../src/index.js";
 import {Aptos} from "../../src/index.js";
 import {debug} from "../../src/helpers/debug.js";
 import {Alice} from "../helpers/alice.js";
+import {Bob} from "../helpers/bob.js"
 import {NODE_URL} from "../../src/helpers/const.js";
 
 let collection
 
-const account = new Account(Alice.privateKey)
+const account = new Account(Bob.privateKey)
 const api = new Aptos(NODE_URL, {
     max_gas_amount: 2000
 })
@@ -14,10 +15,10 @@ const api = new Aptos(NODE_URL, {
 // Create unlimited collection
 collection = await api.createCollection(
     account,
-    "Collection 4",
-    "UnLimited Collection",
+    "Collection 1",
+    "Bob's Collection 1",
     "https://pimenov.com.ua",
-    0
+    10
 )
 debug(collection)
 

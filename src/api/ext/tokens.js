@@ -1,5 +1,6 @@
 import {Result} from "../../helpers/result.js";
 import {hex2str, str2hex} from "../../helpers/hex-string.js";
+import {required} from "../../helpers/required.js";
 
 export const TokenApi = {
     /**
@@ -12,6 +13,11 @@ export const TokenApi = {
      * @returns {Promise<Result|undefined>}
      */
     async createCollection(signer, name, desc, uri, max = 1){
+        required(signer, 'signer', this.createCollection.name)
+        required(name, 'name', this.createCollection.name)
+        required(desc, 'desc', this.createCollection.name)
+        required(uri, 'uri', this.createCollection.name)
+
         if (max <= 0) return new Result(false, 'The maximum value must be greater than zero!')
 
         const payload = {
@@ -36,6 +42,8 @@ export const TokenApi = {
      * @returns {Promise<Result|*[]>}
      */
     async getCollections(address){
+        required(address, 'address', this.getCollections.name)
+
         const resource = await this.getEventsByHandle(this._0x(address), "0x3::token::Collections", "create_collection_events")
         if (!resource.ok) {
             return new Result(false, `No collections found!`, resource.error)
@@ -84,6 +92,10 @@ export const TokenApi = {
         max = 1,
         mutation = {}
     ){
+        required(signer, 'signer', this.createToken.name)
+        required(collection, 'collection', this.createToken.name)
+        required(name, 'name', this.createToken.name)
+
         const {description: mutDesc = false, maximum: mutMax = false, properties: mutProps = false, royalty: mutRoyalty = false, uri: mutUri = false} = mutation
         const payload = {
             type: "script_function_payload",
@@ -110,6 +122,11 @@ export const TokenApi = {
     },
 
     async getTokenBalance(owner, creator, collectionName, tokenName, from = '0x3::token::TokenStore'){
+        required(owner, 'owner', this.getTokenBalance.name)
+        required(creator, 'creator', this.getTokenBalance.name)
+        required(collectionName, 'collectionName', this.getTokenBalance.name)
+        required(tokenName, 'tokenName', this.getTokenBalance.name)
+
         const store = await this.getAccountResource(owner, from)
 
         if (!store.ok) {
@@ -152,6 +169,11 @@ export const TokenApi = {
     },
 
     async getTokenData(owner, creator, collectionName, tokenName, from = '0x3::token::Collections'){
+        required(owner, 'owner', this.getTokenData.name)
+        required(creator, 'creator', this.getTokenData.name)
+        required(collectionName, 'collectionName', this.getTokenData.name)
+        required(tokenName, 'tokenName', this.getTokenData.name)
+
         const store = await this.getAccountResource(owner, from)
 
         if (!store.ok) {
@@ -192,7 +214,13 @@ export const TokenApi = {
         })
     },
 
-    async tokenCreateOffer(signer, receiver, creator,  collectionName, tokenName, amount){
+    async tokenCreateOffer(signer, receiver, creator,  collectionName, tokenName, amount = 1){
+        required(signer, 'signer', this.tokenCreateOffer.name)
+        required(receiver, 'receiver', this.tokenCreateOffer.name)
+        required(creator, 'creator', this.tokenCreateOffer.name)
+        required(collectionName, 'collectionName', this.tokenCreateOffer.name)
+        required(tokenName, 'tokenName', this.tokenCreateOffer.name)
+
         const payload = {
             type: "script_function_payload",
             function: "0x3::token_transfers::offer_script",
@@ -211,6 +239,12 @@ export const TokenApi = {
     },
 
     async tokenClaimOffer(signer, claimer, creator, collectionName, tokenName){
+        required(signer, 'signer', this.tokenClaimOffer.name)
+        required(claimer, 'claimer', this.tokenClaimOffer.name)
+        required(creator, 'creator', this.tokenClaimOffer.name)
+        required(collectionName, 'collectionName', this.tokenClaimOffer.name)
+        required(tokenName, 'tokenName', this.tokenClaimOffer.name)
+
         const payload = {
             type: "script_function_payload",
             function: "0x3::token_transfers::claim_script",
@@ -227,7 +261,13 @@ export const TokenApi = {
         return await this.submitTransaction(signer, payload)
     },
 
-    async tokenCancelOffer(signer, receiver, creator, tokenCreationNum){
+    async tokenCancelOffer(signer, receiver, creator, collection, name, prop_version = 0){
+        required(signer, 'signer', this.tokenCancelOffer.name)
+        required(receiver, 'receiver', this.tokenCancelOffer.name)
+        required(creator, 'creator', this.tokenCancelOffer.name)
+        required(collection, 'collection', this.tokenCancelOffer.name)
+        required(name, 'name', this.tokenCancelOffer.name)
+
         const payload = {
             type: "script_function_payload",
             function: "0x3::token_transfers::cancel_offer_script",
@@ -235,7 +275,9 @@ export const TokenApi = {
             arguments: [
                 receiver,
                 creator,
-                tokenCreationNum.toString()
+                collection,
+                name,
+                prop_version.toString()
             ],
         }
 
