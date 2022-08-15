@@ -10,25 +10,25 @@ const alice = new Account(Alice.privateKey)
 const bob = new Account(Bob.privateKey)
 
 console.log(`=== Send coins demo ===`)
+//
+// console.log(`=== Fund accounts ===`)
+//
+// // await faucet.fundAccount(alice.address(), 1_000_000)
+// // await faucet.fundAccount(bob.address(), 1_000_000)
+//
+// console.log(`Alice balance:`, await api.getAccountBalance(alice.address()))
+// console.log(`Bob balance:`, await api.getAccountBalance(bob.address()))
+//
+// console.log(`=== Send coins from Alice to Bob ===`)
+//
+// await api.sendCoins(alice, bob.address(), 1000)
+//
+// console.log(`Alice balance:`, await api.getAccountBalance(alice.address()))
+// console.log(`Bob balance:`, await api.getAccountBalance(bob.address()))
+//
+// console.log(`=== Send coins from Bob to Alice ===`)
 
-console.log(`=== Fund accounts ===`)
+await api.sendCoins(bob, "0xf279914798fc4a6f8e8108ac1cf3de43f9f00541240671fedfafa21051da739e", 1000)
 
-// await faucet.fundAccount(alice.address(), 1_000_000)
-// await faucet.fundAccount(bob.address(), 1_000_000)
-
-console.log(`Alice balance:`, await api.getAccountBalance(alice.address()))
-console.log(`Bob balance:`, await api.getAccountBalance(bob.address()))
-
-console.log(`=== Send coins from Alice to Bob ===`)
-
-await api.sendCoins(alice, bob.address(), 1000)
-
-console.log(`Alice balance:`, await api.getAccountBalance(alice.address()))
-console.log(`Bob balance:`, await api.getAccountBalance(bob.address()))
-
-console.log(`=== Send coins from Bob to Alice ===`)
-
-await api.sendCoins(bob, alice.address(), 1000)
-
-console.log(`Alice balance:`, await api.getAccountBalance(alice.address()))
-console.log(`Bob balance:`, await api.getAccountBalance(bob.address()))
+// console.log(`Alice balance:`, await api.getAccountBalance(alice.address()))
+// console.log(`Bob balance:`, await api.getAccountBalance(bob.address()))
