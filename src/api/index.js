@@ -1,6 +1,14 @@
 import fetch from 'node-fetch';
 import {Result} from "../helpers/result.js"
-import {APTOS_TOKEN} from "../helpers/const.js";
+import {NodeApi} from "./ext/node.js";
+import {AccountApi} from "./ext/account.js";
+import {TransactionApi} from "./ext/transactions.js";
+import {EventApi} from "./ext/events.js";
+import {TableApi} from "./ext/table.js";
+import {ModuleApi} from "./ext/modules.js";
+import {CoinApi} from "./ext/coins.js";
+import {TokenApi} from "./ext/tokens.js";
+import {Gas} from "./ext/gas.js";
 
 export class Aptos {
     gas = {
@@ -66,5 +74,7 @@ export class Aptos {
 }
 
 Aptos.use = (...obj) => Object.assign(Aptos.prototype, ...obj)
+
+Object.assign(Aptos.prototype, NodeApi, AccountApi, TransactionApi, EventApi, TableApi, ModuleApi, CoinApi, TokenApi, Gas)
 
 export const aptos = (...args) => new Aptos(...args)

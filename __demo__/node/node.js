@@ -3,7 +3,7 @@ import {debug} from "../../src/helpers/debug.js";
 import {NODE_URL, NODE_URL_OLD} from "../../src/helpers/const.js";
 
 
-const api = new Aptos(NODE_URL_OLD)
+const api = new Aptos(NODE_URL)
 
 debug(await api.state())
 debug(await api.getHealthy())
