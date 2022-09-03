@@ -8,7 +8,8 @@ import {TableApi} from "./ext/table.js";
 import {ModuleApi} from "./ext/modules.js";
 import {CoinApi} from "./ext/coins.js";
 import {TokenApi} from "./ext/tokens.js";
-import {Gas} from "./ext/gas.js";
+import {GasAPI} from "./ext/gas.js";
+import {BlocksAPI} from "./ext/blocks.js";
 
 export class Aptos {
     gas = {
@@ -75,6 +76,17 @@ export class Aptos {
 
 Aptos.use = (...obj) => Object.assign(Aptos.prototype, ...obj)
 
-Object.assign(Aptos.prototype, NodeApi, AccountApi, TransactionApi, EventApi, TableApi, ModuleApi, CoinApi, TokenApi, Gas)
+Object.assign(Aptos.prototype,
+    NodeApi,
+    AccountApi,
+    TransactionApi,
+    EventApi,
+    TableApi,
+    ModuleApi,
+    CoinApi,
+    TokenApi,
+    GasAPI,
+    BlocksAPI
+)
 
 export const aptos = (...args) => new Aptos(...args)

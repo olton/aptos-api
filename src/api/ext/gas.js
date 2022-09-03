@@ -1,4 +1,4 @@
-export const Gas = {
+export const GasAPI = {
     setGas(gas){
         for(let key in gas) {
             if (this.gas.hasOwnProperty(key)) {
@@ -9,5 +9,9 @@ export const Gas = {
 
     getGas(){
         return this.gas
+    },
+
+    async estimateGasPrice(){
+        return await this._exec(`/estimate_gas_price`, query)
     }
 }
