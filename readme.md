@@ -6,7 +6,7 @@ Welcome to Aptos Core Client by Serhii Pimenov. This library contains core clien
 To install Aptos Core Client
 
 ```shell
-npm install --save @olton/aptos
+npm install --save @olton/aptos-api
 ```
 
 ## Classes
